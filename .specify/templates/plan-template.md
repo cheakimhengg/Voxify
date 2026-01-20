@@ -31,7 +31,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Privacy: offline-first, no retention, user-consented API usage only
+- [ ] Open source: MIT license and contribution posture preserved
+- [ ] macOS-native: Swift/SwiftUI + HIG compliance and accessibility plan
+- [ ] Testing: unit + integration coverage for critical paths (>= 80%)
+- [ ] Performance: <800ms short-phrase latency and 60fps UI budget defined
+- [ ] UX consistency: cross-app behavior and error handling defined
+- [ ] Inclusivity: language coverage and accent support plan documented
 
 ## Project Structure
 

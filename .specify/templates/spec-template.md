@@ -95,6 +95,14 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Non-Functional Requirements *(mandatory)*
+
+- **NFR-001**: Privacy: Processing MUST be local by default, with explicit consent for any API use
+- **NFR-002**: Performance: Define latency, CPU, memory, and UI frame-rate budgets
+- **NFR-003**: Accessibility: VoiceOver, keyboard navigation, and contrast support MUST be specified
+- **NFR-004**: UX Consistency: Cross-app behavior and error handling MUST be defined
+- **NFR-005**: Testing: Identify required unit/integration tests for critical paths
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]

@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode / Swift
+DerivedData/
+build/
+*.xcworkspace
+*.xcuserdata
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcuserdatad/
+xcshareddata/WorkspaceSettings.xcsettings
+
+# Swift Package Manager
+.build/
+Package.resolved
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Logs
+*.log
+
+# Environment / credentials
+.env
+.env.*
+.secrets/
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+*.mobileprovision
+*.cert
+*.crt
+
+# Local tooling
+.vscode/
+.idea/
+
+# Codex local auth/session data
+.codex/
