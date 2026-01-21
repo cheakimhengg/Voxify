@@ -22,10 +22,10 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create Xcode project and folder scaffolding per plan in `Voxify/` (AC: project opens and builds)
-- [ ] T002 Add Swift Package targets for core modules in `Packages/` (AC: packages build in Xcode)
-- [ ] T003 [P] Configure app bundle identifiers, entitlements, and permissions in `Voxify/Voxify/App/` (AC: mic/accessibility prompts appear)
-- [ ] T004 [P] Create base app shell and menu bar entry in `Voxify/Voxify/App/` (AC: menu bar icon appears)
+- [x] T001 Create Xcode project and folder scaffolding per plan in `Voxify/` (AC: project opens and builds)
+- [x] T002 Add Swift Package targets for core modules in `Packages/` (AC: packages build in Xcode)
+- [x] T003 [P] Configure app bundle identifiers, entitlements, and permissions in `Voxify/Voxify/App/` (AC: mic/accessibility prompts appear)
+- [x] T004 [P] Create base app shell and menu bar entry in `Voxify/Voxify/App/` (AC: menu bar icon appears)
 
 ---
 
@@ -35,14 +35,14 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Implement shared models for dictation state in `Packages/Shared/Sources/Shared/` (AC: status enum covers lifecycle)
-- [ ] T006 Implement settings storage service in `Voxify/Voxify/Services/SettingsStore.swift` (AC: read/write for prefs)
-- [ ] T007 Implement personal dictionary storage in `Voxify/Voxify/Services/DictionaryStore.swift` (AC: CRUD persists locally)
-- [ ] T008 Implement permissions manager in `Voxify/Voxify/Services/PermissionsManager.swift` (AC: mic/accessibility status surfaced)
-- [ ] T009 [P] Create test harness project targets in `Tests/Unit/` and `Tests/Integration/` (AC: tests run in Xcode)
-- [ ] T010 [P] Add logging utilities in `Packages/Shared/Sources/Shared/Logging.swift` (AC: log levels compile)
-- [ ] T011 Implement dictation session model in `Voxify/Voxify/Models/DictationSession.swift` (AC: lifecycle transitions valid)
-- [ ] T012 Implement active app detector in `Packages/ContextDetector/Sources/ContextDetector/` (AC: returns bundle ID)
+- [x] T005 Implement shared models for dictation state in `Packages/Shared/Sources/Shared/` (AC: status enum covers lifecycle)
+- [x] T006 Implement settings storage service in `Voxify/Voxify/Services/SettingsStore.swift` (AC: read/write for prefs)
+- [x] T007 Implement personal dictionary storage in `Voxify/Voxify/Services/DictionaryStore.swift` (AC: CRUD persists locally)
+- [x] T008 Implement permissions manager in `Voxify/Voxify/Services/PermissionsManager.swift` (AC: mic/accessibility status surfaced)
+- [x] T009 [P] Create test harness project targets in `Tests/Unit/` and `Tests/Integration/` (AC: tests run in Xcode)
+- [x] T010 [P] Add logging utilities in `Packages/Shared/Sources/Shared/Logging.swift` (AC: log levels compile)
+- [x] T011 Implement dictation session model in `Voxify/Voxify/Models/DictationSession.swift` (AC: lifecycle transitions valid)
+- [x] T012 Implement active app detector in `Packages/ContextDetector/Sources/ContextDetector/` (AC: returns bundle ID)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -58,22 +58,22 @@ description: "Task list template for feature implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T013 [P] [US1] Unit test dictation session state transitions in `Tests/Unit/DictationSessionTests.swift` (AC: all transitions asserted)
-- [ ] T014 [P] [US1] Integration test live dictation pipeline in `Tests/Integration/DictationPipelineTests.swift` (AC: mock audio -> polished output)
+- [x] T013 [P] [US1] Unit test dictation session state transitions in `Tests/Unit/DictationSessionTests.swift` (AC: all transitions asserted)
+- [x] T014 [P] [US1] Integration test live dictation pipeline in `Tests/Integration/DictationPipelineTests.swift` (AC: mock audio -> polished output)
 
 ### Implementation for User Story 1
 
-- [ ] T015 [P] [US1] Implement audio capture stream in `Packages/AudioEngine/Sources/AudioEngine/AudioCapture.swift` (AC: emits PCM chunks)
-- [ ] T016 [P] [US1] Implement whisper.cpp STT adapter in `Packages/STTService/Sources/STTService/WhisperAdapter.swift` (AC: chunk -> partial text)
-- [ ] T017 [P] [US1] Implement STT service interface in `Packages/STTService/Sources/STTService/STTService.swift` (AC: streams partial/final)
-- [ ] T018 [P] [US1] Implement polishing engine wrapper in `Packages/PolishingService/Sources/PolishingService/LocalPolisher.swift` (AC: text -> polished)
-- [ ] T019 [P] [US1] Implement polishing service interface in `Packages/PolishingService/Sources/PolishingService/PolishingService.swift` (AC: sync/async polish)
-- [ ] T020 [P] [US1] Implement dictation coordinator in `Voxify/Voxify/Features/Dictation/DictationCoordinator.swift` (AC: pipeline orchestration)
-- [ ] T021 [US1] Implement text insertion service in `Packages/TextInserter/Sources/TextInserter/TextInserter.swift` (AC: inserts into focused field)
-- [ ] T022 [US1] Build live preview model in `Voxify/Voxify/Features/Dictation/DictationViewModel.swift` (AC: raw/polished updates)
-- [ ] T023 [US1] Build floating preview UI in `Voxify/Voxify/UI/Dictation/DictationOverlayView.swift` (AC: visible only when active)
-- [ ] T024 [US1] Implement no-focus popup copy flow in `Voxify/Voxify/UI/Dictation/NoFocusPopupView.swift` (AC: shows captured text)
-- [ ] T025 [US1] Wire menu bar start/stop to coordinator in `Voxify/Voxify/App/MenuBarController.swift` (AC: start/stop toggles)
+- [x] T015 [P] [US1] Implement audio capture stream in `Packages/AudioEngine/Sources/AudioEngine/AudioCapture.swift` (AC: emits PCM chunks)
+- [x] T016 [P] [US1] Implement whisper.cpp STT adapter in `Packages/STTService/Sources/STTService/WhisperAdapter.swift` (AC: chunk -> partial text)
+- [x] T017 [P] [US1] Implement STT service interface in `Packages/STTService/Sources/STTService/STTService.swift` (AC: streams partial/final)
+- [x] T018 [P] [US1] Implement polishing engine wrapper in `Packages/PolishingService/Sources/PolishingService/LocalPolisher.swift` (AC: text -> polished)
+- [x] T019 [P] [US1] Implement polishing service interface in `Packages/PolishingService/Sources/PolishingService/PolishingService.swift` (AC: sync/async polish)
+- [x] T020 [P] [US1] Implement dictation coordinator in `Voxify/Voxify/Features/Dictation/DictationCoordinator.swift` (AC: pipeline orchestration)
+- [x] T021 [US1] Implement text insertion service in `Packages/TextInserter/Sources/TextInserter/TextInserter.swift` (AC: inserts into focused field)
+- [x] T022 [US1] Build live preview model in `Voxify/Voxify/Features/Dictation/DictationViewModel.swift` (AC: raw/polished updates)
+- [x] T023 [US1] Build floating preview UI in `Voxify/Voxify/UI/Dictation/DictationOverlayView.swift` (AC: visible only when active)
+- [x] T024 [US1] Implement no-focus popup copy flow in `Voxify/Voxify/UI/Dictation/NoFocusPopupView.swift` (AC: shows captured text)
+- [x] T025 [US1] Wire menu bar start/stop to coordinator in `Voxify/Voxify/App/MenuBarController.swift` (AC: start/stop toggles)
 
 **Checkpoint**: User Story 1 should be fully functional and testable independently
 
@@ -87,14 +87,14 @@ description: "Task list template for feature implementation"
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T026 [P] [US2] Unit test command parsing in `Tests/Unit/VoiceCommandParserTests.swift` (AC: phrases map to actions)
+- [x] T026 [P] [US2] Unit test command parsing in `Tests/Unit/VoiceCommandParserTests.swift` (AC: phrases map to actions)
 
 ### Implementation for User Story 2
 
-- [ ] T027 [US2] Implement command parser in `Voxify/Voxify/Services/VoiceCommandParser.swift` (AC: explicit phrases only)
-- [ ] T028 [US2] Implement command executor in `Voxify/Voxify/Services/VoiceCommandExecutor.swift` (AC: transforms selection)
-- [ ] T029 [US2] Integrate commands into dictation flow in `Voxify/Voxify/Features/Dictation/DictationCoordinator.swift` (AC: commands applied)
-- [ ] T030 [US2] Add command help UI in `Voxify/Voxify/UI/Settings/CommandHelpView.swift` (AC: list visible)
+- [x] T027 [US2] Implement command parser in `Voxify/Voxify/Services/VoiceCommandParser.swift` (AC: explicit phrases only)
+- [x] T028 [US2] Implement command executor in `Voxify/Voxify/Services/VoiceCommandExecutor.swift` (AC: transforms selection)
+- [x] T029 [US2] Integrate commands into dictation flow in `Voxify/Voxify/Features/Dictation/DictationCoordinator.swift` (AC: commands applied)
+- [x] T030 [US2] Add command help UI in `Voxify/Voxify/UI/Settings/CommandHelpView.swift` (AC: list visible)
 
 **Checkpoint**: User Story 2 should be functional and testable independently
 
@@ -108,13 +108,13 @@ description: "Task list template for feature implementation"
 
 ### Tests for User Story 3 (REQUIRED) ⚠️
 
-- [ ] T031 [P] [US3] Unit test dictionary CRUD in `Tests/Unit/DictionaryStoreTests.swift` (AC: add/edit/remove passes)
+- [x] T031 [P] [US3] Unit test dictionary CRUD in `Tests/Unit/DictionaryStoreTests.swift` (AC: add/edit/remove passes)
 
 ### Implementation for User Story 3
 
-- [ ] T032 [US3] Build dictionary management UI in `Voxify/Voxify/UI/Settings/DictionaryView.swift` (AC: add/edit/remove)
-- [ ] T033 [US3] Integrate dictionary into polishing in `Packages/PolishingService/Sources/PolishingService/PolishingService.swift` (AC: terms preserved)
-- [ ] T034 [US3] Add language auto-detect hook in `Packages/STTService/Sources/STTService/STTService.swift` (AC: language codes emitted)
+- [x] T032 [US3] Build dictionary management UI in `Voxify/Voxify/UI/Settings/DictionaryView.swift` (AC: add/edit/remove)
+- [x] T033 [US3] Integrate dictionary into polishing in `Packages/PolishingService/Sources/PolishingService/PolishingService.swift` (AC: terms preserved)
+- [x] T034 [US3] Add language auto-detect hook in `Packages/STTService/Sources/STTService/STTService.swift` (AC: language codes emitted)
 
 **Checkpoint**: User Story 3 should be functional and testable independently
 
@@ -124,8 +124,8 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T035 [P] Add settings window UI in `Voxify/Voxify/UI/Settings/SettingsView.swift` (AC: opens from menu)
-- [ ] T036 Add performance and privacy checks in `Tests/Integration/PerformancePrivacyTests.swift` (AC: latency and retention tests)
+- [x] T035 [P] Add settings window UI in `Voxify/Voxify/UI/Settings/SettingsView.swift` (AC: opens from menu)
+- [x] T036 Add performance and privacy checks in `Tests/Integration/PerformancePrivacyTests.swift` (AC: latency and retention tests)
 
 ---
 
