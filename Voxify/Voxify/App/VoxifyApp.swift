@@ -3,9 +3,23 @@ import SwiftUI
 
 @main
 struct VoxifyApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var menuBarController = MenuBarController()
 
     var body: some Scene {
+        // Main dashboard window
+        WindowGroup {
+            MainDashboardView()
+                .frame(minWidth: 800, minHeight: 600)
+        }
+        .windowStyle(.titleBar)
+        .windowToolbarStyle(.unified)
+        .defaultSize(width: 900, height: 650)
+        .commands {
+            CommandGroup(replacing: .newItem) {}
+        }
+
+        // Menu bar extra for quick access
         MenuBarExtra("Voxify", image: "MenuBarIcon") {
             VStack(alignment: .leading, spacing: 8) {
                 // Status indicator
@@ -30,6 +44,10 @@ struct VoxifyApp: App {
 
                 Divider()
 
+                Button("Open Dashboard") {
+                    openDashboard()
+                }
+
                 Button("Settings...") {
                     NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
                 }
@@ -42,8 +60,19 @@ struct VoxifyApp: App {
             .frame(width: 200)
         }
         .menuBarExtraStyle(.window)
+
         Settings {
             SettingsView()
+        }
+    }
+
+    private func openDashboard() {
+        // Activate the app and bring the main window to front
+        NSApp.activate(ignoringOtherApps: true)
+        if let window = NSApp.windows.first(where: { $0.contentView?.subviews.first is NSHostingView<MainDashboardView> }) {
+            window.makeKeyAndOrderFront(nil)
+        } else if let window = NSApp.windows.first {
+            window.makeKeyAndOrderFront(nil)
         }
     }
 }

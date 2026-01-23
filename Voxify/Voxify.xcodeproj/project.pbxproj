@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		C0F0A1B2C3D4E5F601234568 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0F0A1B2C3D4E5F601234567 /* Assets.xcassets */; };
+		DA5H0001000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0001000000000000 /* AppDelegate.swift */; };
+		DA5H0002000000000001 /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0002000000000000 /* NavigationItem.swift */; };
+		DA5H0003000000000001 /* MainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0003000000000000 /* MainDashboardView.swift */; };
+		DA5H0004000000000001 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0004000000000000 /* SidebarView.swift */; };
+		DA5H0005000000000001 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0005000000000000 /* DetailView.swift */; };
+		DA5H0006000000000001 /* HomeDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0006000000000000 /* HomeDashboardView.swift */; };
+		DA5H0007000000000001 /* StatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0007000000000000 /* StatCard.swift */; };
+		DA5H0008000000000001 /* QuickActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0008000000000000 /* QuickActionCard.swift */; };
+		DA5H0009000000000001 /* WeeklyActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H0009000000000000 /* WeeklyActivityChart.swift */; };
+		DA5H000A000000000001 /* RecentDictationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H000A000000000000 /* RecentDictationRow.swift */; };
+		DA5H000B000000000001 /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H000B000000000000 /* DashboardSettingsView.swift */; };
+		DA5H000C000000000001 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5H000C000000000000 /* InformationView.swift */; };
 		0162F9F15E91F781D358220A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E22B7C1C94E32DB896B5F /* SettingsView.swift */; };
 		01B4C8D5D9C3C7904E5C0C10 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C8D4D9C3C7904E5C0C10 /* GeneralSettingsView.swift */; };
 		01B4C8D7D9C3C7904E5C0C11 /* UsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C8D6D9C3C7904E5C0C11 /* UsageView.swift */; };
@@ -61,6 +73,18 @@
 
 /* Begin PBXFileReference section */
 		C0F0A1B2C3D4E5F601234567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA5H0001000000000000 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA5H0002000000000000 /* NavigationItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NavigationItem.swift; sourceTree = "<group>"; };
+		DA5H0003000000000000 /* MainDashboardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainDashboardView.swift; sourceTree = "<group>"; };
+		DA5H0004000000000000 /* SidebarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		DA5H0005000000000000 /* DetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		DA5H0006000000000000 /* HomeDashboardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeDashboardView.swift; sourceTree = "<group>"; };
+		DA5H0007000000000000 /* StatCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatCard.swift; sourceTree = "<group>"; };
+		DA5H0008000000000000 /* QuickActionCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickActionCard.swift; sourceTree = "<group>"; };
+		DA5H0009000000000000 /* WeeklyActivityChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeeklyActivityChart.swift; sourceTree = "<group>"; };
+		DA5H000A000000000000 /* RecentDictationRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecentDictationRow.swift; sourceTree = "<group>"; };
+		DA5H000B000000000000 /* DashboardSettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardSettingsView.swift; sourceTree = "<group>"; };
+		DA5H000C000000000000 /* InformationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		06D560EC3F2856459712C852 /* DictationSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationSession.swift; sourceTree = "<group>"; };
 		06BB79F1F4D6A388C99A88E1 /* VoxifyHomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoxifyHomeView.swift; sourceTree = "<group>"; };
 		01B4C8D4D9C3C7904E5C0C10 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
@@ -169,6 +193,7 @@
 			children = (
 				E3647035F85800F41AA7A7D5 /* Voxify.entitlements */,
 				CDA7D8980E46E22FBC5292D1 /* VoxifyApp.swift */,
+				DA5H0001000000000000 /* AppDelegate.swift */,
 				11C5F0D6D7B2E0C88DDC5E10 /* HotkeyMonitor.swift */,
 				AA8E0F92DC594CBB704D45EB /* MenuBarController.swift */,
 			);
@@ -180,12 +205,41 @@
 			isa = PBXGroup;
 			children = (
 				E5F6012345678901234502AB /* Components */,
+				DA5HGRP001000000000000 /* Dashboard */,
 				8CBAC2256332CC2FD038D077 /* Dictation */,
 				5DCA707C6C81F73FAEBBD5F9 /* Settings */,
 				06BB79F1F4D6A388C99A88E1 /* VoxifyHomeView.swift */,
 			);
 			name = UI;
 			path = UI;
+			sourceTree = "<group>";
+		};
+		DA5HGRP001000000000000 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				DA5HGRP002000000000000 /* Components */,
+				DA5H0002000000000000 /* NavigationItem.swift */,
+				DA5H0003000000000000 /* MainDashboardView.swift */,
+				DA5H0004000000000000 /* SidebarView.swift */,
+				DA5H0005000000000000 /* DetailView.swift */,
+				DA5H0006000000000000 /* HomeDashboardView.swift */,
+				DA5H000B000000000000 /* DashboardSettingsView.swift */,
+				DA5H000C000000000000 /* InformationView.swift */,
+			);
+			name = Dashboard;
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		DA5HGRP002000000000000 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DA5H0007000000000000 /* StatCard.swift */,
+				DA5H0008000000000000 /* QuickActionCard.swift */,
+				DA5H0009000000000000 /* WeeklyActivityChart.swift */,
+				DA5H000A000000000000 /* RecentDictationRow.swift */,
+			);
+			name = Components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		E5F6012345678901234502AB /* Components */ = {
@@ -478,6 +532,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				94B0B210CA8446A24B225B5C /* VoxifyApp.swift in Sources */,
+				DA5H0001000000000001 /* AppDelegate.swift in Sources */,
+				DA5H0002000000000001 /* NavigationItem.swift in Sources */,
+				DA5H0003000000000001 /* MainDashboardView.swift in Sources */,
+				DA5H0004000000000001 /* SidebarView.swift in Sources */,
+				DA5H0005000000000001 /* DetailView.swift in Sources */,
+				DA5H0006000000000001 /* HomeDashboardView.swift in Sources */,
+				DA5H0007000000000001 /* StatCard.swift in Sources */,
+				DA5H0008000000000001 /* QuickActionCard.swift in Sources */,
+				DA5H0009000000000001 /* WeeklyActivityChart.swift in Sources */,
+				DA5H000A000000000001 /* RecentDictationRow.swift in Sources */,
+				DA5H000B000000000001 /* DashboardSettingsView.swift in Sources */,
+				DA5H000C000000000001 /* InformationView.swift in Sources */,
 				11C5F0D7D7B2E0C88DDC5E10 /* HotkeyMonitor.swift in Sources */,
 				0FE38F686133F7EC6A62EA3A /* MenuBarController.swift in Sources */,
 				CF4D66A75B507A9B7B762601 /* DictationSession.swift in Sources */,
