@@ -3,6 +3,7 @@ import SwiftUI
 /// Sidebar navigation for the dashboard
 struct SidebarView: View {
     @Binding var selectedItem: NavigationItem
+    @Binding var showSettings: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -28,8 +29,8 @@ struct SidebarView: View {
 
             Spacer()
 
-            // Version footer
-            versionFooter
+            // Footer with settings button
+            footerSection
         }
         .background(Color(NSColor.windowBackgroundColor))
     }
@@ -57,20 +58,45 @@ struct SidebarView: View {
         .padding(16)
     }
 
-    // MARK: - Version Footer
+    // MARK: - Footer Section
 
-    private var versionFooter: some View {
-        HStack {
-            Text("v1.0.0")
-                .font(.system(size: 10))
-                .foregroundColor(.secondary)
-            Spacer()
-            Text("Open Source")
-                .font(.system(size: 10))
-                .foregroundColor(.secondary)
+    private var footerSection: some View {
+        VStack(spacing: 8) {
+            Divider()
+                .padding(.horizontal, 16)
+
+            // Settings button
+            Button(action: { showSettings = true }) {
+                HStack(spacing: 10) {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 14))
+                        .frame(width: 20)
+
+                    Text("Settings")
+                        .font(.system(size: 13))
+
+                    Spacer()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .foregroundColor(.primary)
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, 8)
+
+            // Version info
+            HStack {
+                Text("v1.0.0")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text("Open Source")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
         }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 12)
     }
 }
 
@@ -106,6 +132,6 @@ private struct NavigationRow: View {
 }
 
 #Preview {
-    SidebarView(selectedItem: .constant(.home))
+    SidebarView(selectedItem: .constant(.home), showSettings: .constant(false))
         .frame(width: 200, height: 500)
 }

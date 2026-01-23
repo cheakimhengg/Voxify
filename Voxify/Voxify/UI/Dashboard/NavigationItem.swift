@@ -5,7 +5,6 @@ enum NavigationItem: String, CaseIterable, Identifiable {
     case home
     case history
     case dictionary
-    case settings
     case information
 
     var id: String { rawValue }
@@ -15,7 +14,6 @@ enum NavigationItem: String, CaseIterable, Identifiable {
         case .home: return "Home"
         case .history: return "History"
         case .dictionary: return "Dictionary"
-        case .settings: return "Settings"
         case .information: return "Information"
         }
     }
@@ -25,7 +23,6 @@ enum NavigationItem: String, CaseIterable, Identifiable {
         case .home: return "house"
         case .history: return "clock"
         case .dictionary: return "character.book.closed"
-        case .settings: return "gearshape"
         case .information: return "info.circle"
         }
     }
@@ -35,7 +32,6 @@ enum NavigationItem: String, CaseIterable, Identifiable {
         case .home: return "house.fill"
         case .history: return "clock.fill"
         case .dictionary: return "character.book.closed.fill"
-        case .settings: return "gearshape.fill"
         case .information: return "info.circle.fill"
         }
     }

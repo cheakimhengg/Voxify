@@ -13,8 +13,6 @@ struct DetailView: View {
                 HistoryView()
             case .dictionary:
                 DictionaryView()
-            case .settings:
-                DashboardSettingsView()
             case .information:
                 InformationView()
             }

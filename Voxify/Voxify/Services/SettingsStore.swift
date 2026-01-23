@@ -1,13 +1,23 @@
 import Foundation
 
 struct VoxifySettings: Codable, Equatable {
+    // User profile
+    var username: String
+
+    // Hotkeys
     var hotkey: String?
     var holdToTalkEnabled: Bool
     var continuousModeEnabled: Bool
+    var handsFreeModeHotkey: String
     var pauseThresholdSeconds: Double
     var silenceThreshold: Float
     var beepEnabled: Bool
+
+    // Language settings
+    var interfaceLanguage: String
     var languageHint: String?
+
+    // Polishing settings
     var polishingEnabled: Bool
     var autoRemoveFillers: Bool
     var repetitionDetection: Bool
@@ -24,12 +34,15 @@ struct VoxifySettings: Codable, Equatable {
     var saveHistoryEnabled: Bool
 
     static let `default` = VoxifySettings(
-        hotkey: "Right Command",
+        username: "User",
+        hotkey: "Ctrl",
         holdToTalkEnabled: true,
         continuousModeEnabled: false,
+        handsFreeModeHotkey: "Ctrl+Shift",
         pauseThresholdSeconds: 3.5,
         silenceThreshold: 0.02,
         beepEnabled: true,
+        interfaceLanguage: "English",
         languageHint: nil,
         polishingEnabled: true,
         autoRemoveFillers: true,
