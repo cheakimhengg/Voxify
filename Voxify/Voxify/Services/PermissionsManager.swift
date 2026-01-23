@@ -1,5 +1,6 @@
 import AVFoundation
 import ApplicationServices
+import Speech
 
 final class PermissionsManager {
     func microphoneStatus() -> AVAuthorizationStatus {
@@ -19,8 +20,24 @@ final class PermissionsManager {
     }
 
     @discardableResult
-    func requestAccessibilityAccess() -> Bool {
-        let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as String: true]
-        return AXIsProcessTrustedWithOptions(options as CFDictionary)
+    func requestAccessibilityAccess(showPrompt: Bool = true) -> Bool {
+        if showPrompt {
+            let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as String: true]
+            return AXIsProcessTrustedWithOptions(options as CFDictionary)
+        } else {
+            return AXIsProcessTrusted()
+        }
+    }
+
+    func speechStatus() -> SFSpeechRecognizerAuthorizationStatus {
+        SFSpeechRecognizer.authorizationStatus()
+    }
+
+    func requestSpeechAccess(completion: @escaping (Bool) -> Void) {
+        SFSpeechRecognizer.requestAuthorization { status in
+            DispatchQueue.main.async {
+                completion(status == .authorized)
+            }
+        }
     }
 }

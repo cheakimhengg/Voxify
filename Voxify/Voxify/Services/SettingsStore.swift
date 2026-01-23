@@ -1,12 +1,49 @@
 import Foundation
 
-struct VoxifySettings: Codable {
+struct VoxifySettings: Codable, Equatable {
     var hotkey: String?
+    var holdToTalkEnabled: Bool
+    var continuousModeEnabled: Bool
+    var pauseThresholdSeconds: Double
+    var silenceThreshold: Float
+    var beepEnabled: Bool
     var languageHint: String?
     var polishingEnabled: Bool
-    var preferredTone: String?
+    var autoRemoveFillers: Bool
+    var repetitionDetection: Bool
+    var grammarCorrection: Bool
+    var autoFormatting: Bool
+    var preferredTone: String
+    var privacyMode: Bool
+    var dailyWordGoal: Int
 
-    static let `default` = VoxifySettings(hotkey: nil, languageHint: nil, polishingEnabled: true, preferredTone: nil)
+    // New Typeless-like features
+    var midSentenceCorrectionEnabled: Bool
+    var contextAwareToneEnabled: Bool
+    var showAudioWaveform: Bool
+    var saveHistoryEnabled: Bool
+
+    static let `default` = VoxifySettings(
+        hotkey: "Right Command",
+        holdToTalkEnabled: true,
+        continuousModeEnabled: false,
+        pauseThresholdSeconds: 3.5,
+        silenceThreshold: 0.02,
+        beepEnabled: true,
+        languageHint: nil,
+        polishingEnabled: true,
+        autoRemoveFillers: true,
+        repetitionDetection: true,
+        grammarCorrection: true,
+        autoFormatting: true,
+        preferredTone: "Professional",
+        privacyMode: false,
+        dailyWordGoal: 1000,
+        midSentenceCorrectionEnabled: true,
+        contextAwareToneEnabled: true,
+        showAudioWaveform: true,
+        saveHistoryEnabled: true
+    )
 }
 
 final class SettingsStore {

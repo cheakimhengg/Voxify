@@ -25,7 +25,7 @@ final class DictationPipelineTests: XCTestCase {
             updates.append((raw, polished, isFinal))
         }
 
-        coordinator.start(appBundleId: "com.example.test")
+        coordinator.start(appBundleId: "com.example.test", mode: .holdToTalk, pauseThresholdSeconds: 3.5, silenceThreshold: 0.02)
         audio.emit(sequence: 0)
         coordinator.stop()
 
@@ -42,7 +42,7 @@ final class MockAudioCapture: AudioCapturing {
     func stop() {}
 
     func emit(sequence: Int) {
-        let chunk = PCMChunk(sequence: sequence, data: Data([0x00]), sampleRate: 16000)
+        let chunk = PCMChunk(sequence: sequence, data: Data([0x00]), sampleRate: 16000, rms: 0.1)
         onPCMChunk?(chunk)
     }
 }
@@ -72,6 +72,10 @@ final class MockPolisher: PolishingServicing {
         polish(text)
     }
 
+    func polish(_ text: String, preserving terms: [String], options: PolishingOptions) -> String {
+        polish(text)
+    }
+
     func polish(_ text: String, completion: @escaping (String) -> Void) {
         completion(polish(text))
     }
@@ -84,5 +88,14 @@ final class MockTextInserter: TextInserting {
     func insert(_ text: String) -> Bool {
         lastInserted = text
         return true
+    }
+
+    func focusedTextState() -> FocusedTextState? {
+        nil
+    }
+
+    @discardableResult
+    func send(_ command: KeyCommand) -> Bool {
+        true
     }
 }

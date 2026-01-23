@@ -4,11 +4,13 @@ public struct PCMChunk {
     public let sequence: Int
     public let data: Data
     public let sampleRate: Double
+    public let rms: Float
 
-    public init(sequence: Int, data: Data, sampleRate: Double) {
+    public init(sequence: Int, data: Data, sampleRate: Double, rms: Float) {
         self.sequence = sequence
         self.data = data
         self.sampleRate = sampleRate
+        self.rms = rms
     }
 }
 
@@ -36,7 +38,8 @@ public final class AudioCapture: AudioCapturing {
 
             let frameCount = Int(buffer.frameLength)
             let data = Data(bytes: channelData, count: frameCount * MemoryLayout<Float>.size)
-            let chunk = PCMChunk(sequence: sequence, data: data, sampleRate: format.sampleRate)
+            let rms = Self.rmsValue(for: channelData, frameCount: frameCount)
+            let chunk = PCMChunk(sequence: sequence, data: data, sampleRate: format.sampleRate, rms: rms)
             sequence += 1
             onPCMChunk?(chunk)
         }
@@ -48,5 +51,15 @@ public final class AudioCapture: AudioCapturing {
     public func stop() {
         engine.inputNode.removeTap(onBus: 0)
         engine.stop()
+    }
+
+    private static func rmsValue(for data: UnsafePointer<Float>, frameCount: Int) -> Float {
+        guard frameCount > 0 else { return 0 }
+        var sum: Float = 0
+        for index in 0..<frameCount {
+            let value = data[index]
+            sum += value * value
+        }
+        return sqrt(sum / Float(frameCount))
     }
 }

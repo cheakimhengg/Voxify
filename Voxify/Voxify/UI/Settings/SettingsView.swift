@@ -3,12 +3,28 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         TabView {
+            GeneralSettingsView()
+                .tabItem {
+                    Label("General", systemImage: "gear")
+                }
             DictionaryView()
-                .tabItem { Text("Dictionary") }
+                .tabItem {
+                    Label("Dictionary", systemImage: "book.closed")
+                }
+            HistoryView()
+                .tabItem {
+                    Label("History", systemImage: "clock.arrow.circlepath")
+                }
             CommandHelpView()
-                .tabItem { Text("Commands") }
+                .tabItem {
+                    Label("Commands", systemImage: "command")
+                }
+            UsageView()
+                .tabItem {
+                    Label("Usage", systemImage: "chart.bar")
+                }
         }
-        .frame(minWidth: 520, minHeight: 420)
+        .frame(minWidth: 680, minHeight: 520)
         .padding(8)
     }
 }
