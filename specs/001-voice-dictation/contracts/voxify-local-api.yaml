@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: Voxify Local Service API
+  version: 0.1.0
+  description: |
+    Internal localhost-only contract for dictation pipeline services.
+    Not exposed publicly; used to document module boundaries and tests.
+servers:
+  - url: http://localhost
+paths:
+  /sessions:
+    post:
+      summary: Start a dictation session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionStart'
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /sessions/{sessionId}/chunk:
+    post:
+      summary: Submit audio chunk for streaming transcription
+      parameters:
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudioChunk'
+      responses:
+        '200':
+          description: Partial transcription update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialTranscript'
+  /sessions/{sessionId}/finalize:
+    post:
+      summary: Finalize session and return polished text
+      parameters:
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Polished output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinalTranscript'
+  /commands/execute:
+    post:
+      summary: Execute a voice command against selected text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommandRequest'
+      responses:
+        '200':
+          description: Updated text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+  /dictionary:
+    get:
+      summary: List personal dictionary entries
+      responses:
+        '200':
+          description: Dictionary entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryList'
+    post:
+      summary: Add a personal dictionary entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DictionaryEntry'
+      responses:
+        '201':
+          description: Entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryEntry'
+  /dictionary/{entryId}:
+    delete:
+      summary: Remove a dictionary entry
+      parameters:
+        - in: path
+          name: entryId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+components:
+  schemas:
+    SessionStart:
+      type: object
+      required: [appBundleId, languageHint]
+      properties:
+        appBundleId:
+          type: string
+        languageHint:
+          type: string
+          nullable: true
+        audioDeviceId:
+          type: string
+          nullable: true
+    Session:
+      type: object
+      required: [id, status, startedAt]
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+    AudioChunk:
+      type: object
+      required: [sequence, pcmBase64]
+      properties:
+        sequence:
+          type: integer
+        pcmBase64:
+          type: string
+    PartialTranscript:
+      type: object
+      required: [rawText, polishedText, isFinal]
+      properties:
+        rawText:
+          type: string
+        polishedText:
+          type: string
+        isFinal:
+          type: boolean
+    FinalTranscript:
+      type: object
+      required: [rawText, polishedText]
+      properties:
+        rawText:
+          type: string
+        polishedText:
+          type: string
+    CommandRequest:
+      type: object
+      required: [commandPhrase, selectedText, appBundleId]
+      properties:
+        commandPhrase:
+          type: string
+        selectedText:
+          type: string
+        appBundleId:
+          type: string
+    CommandResponse:
+      type: object
+      required: [updatedText]
+      properties:
+        updatedText:
+          type: string
+    DictionaryEntry:
+      type: object
+      required: [id, term, languageCode]
+      properties:
+        id:
+          type: string
+        term:
+          type: string
+        languageCode:
+          type: string
+        pronunciationHint:
+          type: string
+          nullable: true
+        isEnabled:
+          type: boolean
+    DictionaryList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DictionaryEntry'

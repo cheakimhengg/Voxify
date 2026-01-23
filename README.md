@@ -1,2 +1,4 @@
 # Voxify
-Voice-driven AI dev toolkit. Speak ideas into code with Claude, Codex + Spec Kit agents. Fast, hands-free prototyping &amp; implementation.
+![Voxify Logo](logo.jpg)
+
+Free, open-source voice dictation for macOS.

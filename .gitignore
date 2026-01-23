@@ -19,6 +19,7 @@ xcshareddata/WorkspaceSettings.xcsettings
 # Swift Package Manager
 .build/
 Package.resolved
+.swiftpm/
 
 # Playgrounds
 timeline.xctimeline
@@ -43,6 +44,9 @@ secrets/
 # Local tooling
 .vscode/
 .idea/
+Thumbs.db
+*.tmp
+*.swp
 
 # Codex local auth/session data
 .codex/

@@ -1,0 +1,911 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C0F0A1B2C3D4E5F601234568 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0F0A1B2C3D4E5F601234567 /* Assets.xcassets */; };
+		0162F9F15E91F781D358220A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E22B7C1C94E32DB896B5F /* SettingsView.swift */; };
+		01B4C8D5D9C3C7904E5C0C10 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C8D4D9C3C7904E5C0C10 /* GeneralSettingsView.swift */; };
+		01B4C8D7D9C3C7904E5C0C11 /* UsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C8D6D9C3C7904E5C0C11 /* UsageView.swift */; };
+		A1B2C3D4E5F60123456789AB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60123456789AA /* HistoryView.swift */; };
+		B2C3D4E5F6012345678901CD /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6012345678901CC /* HistoryStore.swift */; };
+		C3D4E5F601234567890123EF /* AppToneMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F601234567890123EE /* AppToneMapper.swift */; };
+		D4E5F6012345678901234501 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6012345678901234500 /* AudioWaveformView.swift */; };
+		06BB79F2F4D6A388C99A88E1 /* VoxifyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB79F1F4D6A388C99A88E1 /* VoxifyHomeView.swift */; };
+		036EF0892AC114CC488F4B32 /* PerformancePrivacyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C9F60157F011475F8B551 /* PerformancePrivacyTests.swift */; };
+		0400580FDDDC6E548BC4CD29 /* DictationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87E552BF90B5CD523C2223F /* DictationCoordinator.swift */; };
+		05105FB7AABD4025A13817DA /* DictionaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FA6BDA32327A0D8045A51F /* DictionaryStore.swift */; };
+		0682D16D2B2BDC9A710E0F41 /* DictationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA5CC42D2EC9F51EAC7F81 /* DictationViewModel.swift */; };
+		0FE38F686133F7EC6A62EA3A /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E0F92DC594CBB704D45EB /* MenuBarController.swift */; };
+		11C5F0D7D7B2E0C88DDC5E10 /* HotkeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C5F0D6D7B2E0C88DDC5E10 /* HotkeyMonitor.swift */; };
+		155D34158DFBF51E89DB2BED /* DictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BE03ED6C1C522D665EC052 /* DictionaryView.swift */; };
+		1B5F5107FE24FA64FB331FA4 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3874FEA88FC1542EB5909BC /* SettingsStore.swift */; };
+		1DA3B98F44C7A7B44F81D2A1 /* UsageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA3B98E44C7A7B44F81D2A1 /* UsageStore.swift */; };
+		3A4B0853F6A9C3805F81F961 /* VoiceCommandExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299246F846BA85795ED559B /* VoiceCommandExecutor.swift */; };
+		652AAF95E879744E2C1BF1A4 /* VoiceCommandParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1591A07926C232AB6ED7633 /* VoiceCommandParserTests.swift */; };
+		753A7432D5B3D2CB5373A5C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B0D8D64034E3BA5267B9A /* Cocoa.framework */; };
+		7AFEE06333190E57D4A2266C /* DictionaryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B1716308213C8301245C0C /* DictionaryStoreTests.swift */; };
+		903278A91B3AF38579C01116 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B0D8D64034E3BA5267B9A /* Cocoa.framework */; };
+		92A43FCDC807D939BA14FF36 /* DictationSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288B9297C40A9811428053D /* DictationSessionTests.swift */; };
+		94B0B210CA8446A24B225B5C /* VoxifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7D8980E46E22FBC5292D1 /* VoxifyApp.swift */; };
+		9E71E51E90B3B2CF66413D3E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B0D8D64034E3BA5267B9A /* Cocoa.framework */; };
+		A84BE065F2C5DE084BE62EC6 /* CommandHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903D4D679D5DCDDED5D7A150 /* CommandHelpView.swift */; };
+		AAEC87B7F2BD1A74567E05FA /* DictationPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20107C67B53F1F0552D500 /* DictationPipelineTests.swift */; };
+		B0B8D1A94C2145C01F964D74 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F83E787AE3F92EFCCAC62 /* PermissionsManager.swift */; };
+		C0159ABF4E50E34486F061B9 /* DictationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31824AA2E40134366E3C7650 /* DictationOverlayView.swift */; };
+		CF4D66A75B507A9B7B762601 /* DictationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D560EC3F2856459712C852 /* DictationSession.swift */; };
+		E95360BD920B9F3AB425DF91 /* VoiceCommandParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CDC5657E079FCC2CD4A03E /* VoiceCommandParser.swift */; };
+		E5F60123456789012345AABB /* RecordingPopupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F60123456789012345AAAA /* RecordingPopupWindow.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2147256B45E5C089F95F3DCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E94A0B4B89F37B378711A400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 236B23B4603B961DDD34F2D2;
+			remoteInfo = Voxify;
+		};
+		3FC2E32F8AF486B3B720C2DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E94A0B4B89F37B378711A400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 236B23B4603B961DDD34F2D2;
+			remoteInfo = Voxify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C0F0A1B2C3D4E5F601234567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		06D560EC3F2856459712C852 /* DictationSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationSession.swift; sourceTree = "<group>"; };
+		06BB79F1F4D6A388C99A88E1 /* VoxifyHomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoxifyHomeView.swift; sourceTree = "<group>"; };
+		01B4C8D4D9C3C7904E5C0C10 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		01B4C8D6D9C3C7904E5C0C11 /* UsageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UsageView.swift; sourceTree = "<group>"; };
+		071B0D8D64034E3BA5267B9A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		11C5F0D6D7B2E0C88DDC5E10 /* HotkeyMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HotkeyMonitor.swift; sourceTree = "<group>"; };
+		12CDC5657E079FCC2CD4A03E /* VoiceCommandParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoiceCommandParser.swift; sourceTree = "<group>"; };
+		1DA3B98E44C7A7B44F81D2A1 /* UsageStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UsageStore.swift; sourceTree = "<group>"; };
+		23B1716308213C8301245C0C /* DictionaryStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictionaryStoreTests.swift; sourceTree = "<group>"; };
+		2D090D37F91002F64F107A2D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Voxify/Supporting/Info.plist; sourceTree = "<group>"; };
+		31824AA2E40134366E3C7650 /* DictationOverlayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationOverlayView.swift; sourceTree = "<group>"; };
+		351F83E787AE3F92EFCCAC62 /* PermissionsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
+		4299246F846BA85795ED559B /* VoiceCommandExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoiceCommandExecutor.swift; sourceTree = "<group>"; };
+		43A4D196EA88494587325F1C /* VoxifyIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoxifyIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		633C9F60157F011475F8B551 /* PerformancePrivacyTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PerformancePrivacyTests.swift; sourceTree = "<group>"; };
+		67BE03ED6C1C522D665EC052 /* DictionaryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictionaryView.swift; sourceTree = "<group>"; };
+		6A03A2FF0207DBE699C2D6D6 /* DictationPipelineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationPipelineTests.swift; sourceTree = "<group>"; };
+		70F17BB55E664DDD6579204E /* VoxifyUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoxifyUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CC3D2EDD9669C417B89EF12 /* VoiceCommandParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoiceCommandParserTests.swift; sourceTree = "<group>"; };
+		8FB54ABBF31EAFF92E129102 /* DictionaryStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictionaryStoreTests.swift; sourceTree = "<group>"; };
+		903D4D679D5DCDDED5D7A150 /* CommandHelpView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommandHelpView.swift; sourceTree = "<group>"; };
+		90AA5CC42D2EC9F51EAC7F81 /* DictationViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationViewModel.swift; sourceTree = "<group>"; };
+		A0FA6BDA32327A0D8045A51F /* DictionaryStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictionaryStore.swift; sourceTree = "<group>"; };
+		A288B9297C40A9811428053D /* DictationSessionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationSessionTests.swift; sourceTree = "<group>"; };
+		AA8E0F92DC594CBB704D45EB /* MenuBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		AE20107C67B53F1F0552D500 /* DictationPipelineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationPipelineTests.swift; sourceTree = "<group>"; };
+		B1591A07926C232AB6ED7633 /* VoiceCommandParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoiceCommandParserTests.swift; sourceTree = "<group>"; };
+		E5F60123456789012345AAAA /* RecordingPopupWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecordingPopupWindow.swift; sourceTree = "<group>"; };
+		C3874FEA88FC1542EB5909BC /* SettingsStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		CDA7D8980E46E22FBC5292D1 /* VoxifyApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoxifyApp.swift; sourceTree = "<group>"; };
+		D00E22B7C1C94E32DB896B5F /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60123456789AA /* HistoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6012345678901CC /* HistoryStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		C3D4E5F601234567890123EE /* AppToneMapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppToneMapper.swift; sourceTree = "<group>"; };
+		D4E5F6012345678901234500 /* AudioWaveformView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioWaveformView.swift; sourceTree = "<group>"; };
+		E3647035F85800F41AA7A7D5 /* Voxify.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; name = Voxify.entitlements; path = Voxify/App/Voxify.entitlements; sourceTree = "<group>"; };
+		F87E552BF90B5CD523C2223F /* DictationCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationCoordinator.swift; sourceTree = "<group>"; };
+		FB37457662BF4F7B7D7D9B89 /* DictationSessionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationSessionTests.swift; sourceTree = "<group>"; };
+		FCEA13B0307168E374CDDEC2 /* PerformancePrivacyTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PerformancePrivacyTests.swift; sourceTree = "<group>"; };
+		FE72C972808670795BB15786 /* Voxify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voxify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		32903BCB389686DA702DF723 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E71E51E90B3B2CF66413D3E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E87F65762B664761202810 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				753A7432D5B3D2CB5373A5C2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53499E085E67C6F038DE3F7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				903278A91B3AF38579C01116 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15368F1564A6C3E0FDDE8AEA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C3874FEA88FC1542EB5909BC /* SettingsStore.swift */,
+				A0FA6BDA32327A0D8045A51F /* DictionaryStore.swift */,
+				351F83E787AE3F92EFCCAC62 /* PermissionsManager.swift */,
+				12CDC5657E079FCC2CD4A03E /* VoiceCommandParser.swift */,
+				4299246F846BA85795ED559B /* VoiceCommandExecutor.swift */,
+				1DA3B98E44C7A7B44F81D2A1 /* UsageStore.swift */,
+				B2C3D4E5F6012345678901CC /* HistoryStore.swift */,
+				C3D4E5F601234567890123EE /* AppToneMapper.swift */,
+			);
+			name = Services;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1A758E88C178FB7E37A875E5 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				071B0D8D64034E3BA5267B9A /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		2D895531A17D973267DDFA04 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				DF7E7EF58E6CFDDB794F3BD5 /* Dictation */,
+			);
+			name = Features;
+			path = Features;
+			sourceTree = "<group>";
+		};
+		44905D48DA536DE15DCB37B3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E3647035F85800F41AA7A7D5 /* Voxify.entitlements */,
+				CDA7D8980E46E22FBC5292D1 /* VoxifyApp.swift */,
+				11C5F0D6D7B2E0C88DDC5E10 /* HotkeyMonitor.swift */,
+				AA8E0F92DC594CBB704D45EB /* MenuBarController.swift */,
+			);
+			name = App;
+			path = App;
+			sourceTree = "<group>";
+		};
+		527560517360C0D7D79BAED3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E5F6012345678901234502AB /* Components */,
+				8CBAC2256332CC2FD038D077 /* Dictation */,
+				5DCA707C6C81F73FAEBBD5F9 /* Settings */,
+				06BB79F1F4D6A388C99A88E1 /* VoxifyHomeView.swift */,
+			);
+			name = UI;
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E5F6012345678901234502AB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D4E5F6012345678901234500 /* AudioWaveformView.swift */,
+			);
+			name = Components;
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5DCA707C6C81F73FAEBBD5F9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				903D4D679D5DCDDED5D7A150 /* CommandHelpView.swift */,
+				67BE03ED6C1C522D665EC052 /* DictionaryView.swift */,
+				01B4C8D4D9C3C7904E5C0C10 /* GeneralSettingsView.swift */,
+				A1B2C3D4E5F60123456789AA /* HistoryView.swift */,
+				D00E22B7C1C94E32DB896B5F /* SettingsView.swift */,
+				01B4C8D6D9C3C7904E5C0C11 /* UsageView.swift */,
+			);
+			name = Settings;
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		60A4F8BF8B6C22C4C732C583 /* Unit */ = {
+			isa = PBXGroup;
+			children = (
+				A288B9297C40A9811428053D /* DictationSessionTests.swift */,
+				B1591A07926C232AB6ED7633 /* VoiceCommandParserTests.swift */,
+				23B1716308213C8301245C0C /* DictionaryStoreTests.swift */,
+				FB37457662BF4F7B7D7D9B89 /* DictationSessionTests.swift */,
+				7CC3D2EDD9669C417B89EF12 /* VoiceCommandParserTests.swift */,
+				8FB54ABBF31EAFF92E129102 /* DictionaryStoreTests.swift */,
+			);
+			name = Unit;
+			path = Unit;
+			sourceTree = "<group>";
+		};
+		68C024B00E1EBA21FFC638B0 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				2D090D37F91002F64F107A2D /* Info.plist */,
+			);
+			name = Supporting;
+			path = Voxify/Supporting;
+			sourceTree = "<group>";
+		};
+		7F6C47BF433B11847EFF6239 = {
+			isa = PBXGroup;
+			children = (
+				D427855E78FFCCA7CE8F5E88 /* Products */,
+				87E3FBE6220B420F6797B01B /* Frameworks */,
+				8824307E696274B581C5037E /* Voxify */,
+				D6AEC4B78FC0ED660A83B310 /* Tests */,
+			);
+			sourceTree = "<group>";
+		};
+		87E3FBE6220B420F6797B01B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A758E88C178FB7E37A875E5 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8824307E696274B581C5037E /* Voxify */ = {
+			isa = PBXGroup;
+			children = (
+				44905D48DA536DE15DCB37B3 /* App */,
+				68C024B00E1EBA21FFC638B0 /* Supporting */,
+				C0F0A1B2C3D4E5F601234567 /* Assets.xcassets */,
+				D521012137F6725A4A8463C7 /* Models */,
+				15368F1564A6C3E0FDDE8AEA /* Services */,
+				2D895531A17D973267DDFA04 /* Features */,
+				527560517360C0D7D79BAED3 /* UI */,
+			);
+			name = Voxify;
+			path = Voxify;
+			sourceTree = "<group>";
+		};
+		8CBAC2256332CC2FD038D077 /* Dictation */ = {
+			isa = PBXGroup;
+			children = (
+				31824AA2E40134366E3C7650 /* DictationOverlayView.swift */,
+				E5F60123456789012345AAAA /* RecordingPopupWindow.swift */,
+			);
+			name = Dictation;
+			path = Dictation;
+			sourceTree = "<group>";
+		};
+		979D6FAAF68E0434DF2619A1 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				AE20107C67B53F1F0552D500 /* DictationPipelineTests.swift */,
+				633C9F60157F011475F8B551 /* PerformancePrivacyTests.swift */,
+				6A03A2FF0207DBE699C2D6D6 /* DictationPipelineTests.swift */,
+				FCEA13B0307168E374CDDEC2 /* PerformancePrivacyTests.swift */,
+			);
+			name = Integration;
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		D427855E78FFCCA7CE8F5E88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE72C972808670795BB15786 /* Voxify.app */,
+				70F17BB55E664DDD6579204E /* VoxifyUnitTests.xctest */,
+				43A4D196EA88494587325F1C /* VoxifyIntegrationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D521012137F6725A4A8463C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				06D560EC3F2856459712C852 /* DictationSession.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D6AEC4B78FC0ED660A83B310 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				60A4F8BF8B6C22C4C732C583 /* Unit */,
+				979D6FAAF68E0434DF2619A1 /* Integration */,
+			);
+			name = Tests;
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DF7E7EF58E6CFDDB794F3BD5 /* Dictation */ = {
+			isa = PBXGroup;
+			children = (
+				F87E552BF90B5CD523C2223F /* DictationCoordinator.swift */,
+				90AA5CC42D2EC9F51EAC7F81 /* DictationViewModel.swift */,
+			);
+			name = Dictation;
+			path = Dictation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		236B23B4603B961DDD34F2D2 /* Voxify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFAD1101E502AF8D26720781 /* Build configuration list for PBXNativeTarget "Voxify" */;
+			buildPhases = (
+				AA4B703E85877A05824DC2BF /* Sources */,
+				53499E085E67C6F038DE3F7B /* Frameworks */,
+				3B5F644A47E895A09D187B24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Voxify;
+			packageProductDependencies = (
+				A4F351066A80607757EDC4FC /* Shared */,
+				0D9E5C306009E8726E0D75F5 /* AudioEngine */,
+				314239FC100568B7E3F55598 /* STTService */,
+				6D9DAEB3B8AF81F224EE2C93 /* PolishingService */,
+				42CC036FFCB7ABB3E40C06FA /* ContextDetector */,
+				38DB8EC3E1F60E617381D741 /* TextInserter */,
+			);
+			productName = Voxify;
+			productReference = FE72C972808670795BB15786 /* Voxify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5C64F7F997EF2F26BB68D78E /* VoxifyIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1537F4C8410D2F9504A8C857 /* Build configuration list for PBXNativeTarget "VoxifyIntegrationTests" */;
+			buildPhases = (
+				F6E47D8604CFEB346EBE10B5 /* Sources */,
+				32903BCB389686DA702DF723 /* Frameworks */,
+				B8774DD77D31C9F478454955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2D52476DE0B6984BA89140B /* PBXTargetDependency */,
+			);
+			name = VoxifyIntegrationTests;
+			packageProductDependencies = (
+				1BA51CC333C793F2CD4554F1 /* Shared */,
+				21C004EEA3AC4924E1F7B53B /* AudioEngine */,
+				89360AA34C44186B531281A6 /* STTService */,
+				5F69607AC3655C376AD8279F /* PolishingService */,
+				93F952E8D5611D71295AD862 /* ContextDetector */,
+				03D363AE1B3B687D5706C03F /* TextInserter */,
+			);
+			productName = VoxifyIntegrationTests;
+			productReference = 43A4D196EA88494587325F1C /* VoxifyIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7D1843332CBFEB2558D86E13 /* VoxifyUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F1261418218516D2C540580 /* Build configuration list for PBXNativeTarget "VoxifyUnitTests" */;
+			buildPhases = (
+				F88E447F059465D3E59DB0BC /* Sources */,
+				52E87F65762B664761202810 /* Frameworks */,
+				AA00E919040A36974AA513D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64FCEC16BCDBB8D72B05F41E /* PBXTargetDependency */,
+			);
+			name = VoxifyUnitTests;
+			packageProductDependencies = (
+				9B4D0A5E401573C5306670E9 /* Shared */,
+				2F92A88DD2795C493AF93A4C /* AudioEngine */,
+				9CDA6C20432B4B8FEF3377DD /* STTService */,
+				45BDEA165171FB859123FD26 /* PolishingService */,
+				77327930282F9CF16ACDEE73 /* ContextDetector */,
+				4107A459BAD27EF7AB21BBA9 /* TextInserter */,
+			);
+			productName = VoxifyUnitTests;
+			productReference = 70F17BB55E664DDD6579204E /* VoxifyUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E94A0B4B89F37B378711A400 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = CC25DB4B316C6C59D55AB941 /* Build configuration list for PBXProject "Voxify" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7F6C47BF433B11847EFF6239;
+			minimizedProjectReferenceProxies = 0;
+			packageReferences = (
+				3D74ECA321212AA8FEBE2E35 /* XCLocalSwiftPackageReference "Shared" */,
+				9A8AC717924E385A9572C39B /* XCLocalSwiftPackageReference "AudioEngine" */,
+				CF8D131F588EE928B04D1969 /* XCLocalSwiftPackageReference "STTService" */,
+				CB919B7336DF4D1AEAAEAEE0 /* XCLocalSwiftPackageReference "PolishingService" */,
+				381036983780819EAAA4A8C7 /* XCLocalSwiftPackageReference "ContextDetector" */,
+				78718A19871E584A6CD23287 /* XCLocalSwiftPackageReference "TextInserter" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D427855E78FFCCA7CE8F5E88 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				236B23B4603B961DDD34F2D2 /* Voxify */,
+				7D1843332CBFEB2558D86E13 /* VoxifyUnitTests */,
+				5C64F7F997EF2F26BB68D78E /* VoxifyIntegrationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B5F644A47E895A09D187B24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0F0A1B2C3D4E5F601234568 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA00E919040A36974AA513D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8774DD77D31C9F478454955 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA4B703E85877A05824DC2BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94B0B210CA8446A24B225B5C /* VoxifyApp.swift in Sources */,
+				11C5F0D7D7B2E0C88DDC5E10 /* HotkeyMonitor.swift in Sources */,
+				0FE38F686133F7EC6A62EA3A /* MenuBarController.swift in Sources */,
+				CF4D66A75B507A9B7B762601 /* DictationSession.swift in Sources */,
+				1B5F5107FE24FA64FB331FA4 /* SettingsStore.swift in Sources */,
+				1DA3B98F44C7A7B44F81D2A1 /* UsageStore.swift in Sources */,
+				05105FB7AABD4025A13817DA /* DictionaryStore.swift in Sources */,
+				B0B8D1A94C2145C01F964D74 /* PermissionsManager.swift in Sources */,
+				E95360BD920B9F3AB425DF91 /* VoiceCommandParser.swift in Sources */,
+				3A4B0853F6A9C3805F81F961 /* VoiceCommandExecutor.swift in Sources */,
+				0400580FDDDC6E548BC4CD29 /* DictationCoordinator.swift in Sources */,
+				0682D16D2B2BDC9A710E0F41 /* DictationViewModel.swift in Sources */,
+				06BB79F2F4D6A388C99A88E1 /* VoxifyHomeView.swift in Sources */,
+				C0159ABF4E50E34486F061B9 /* DictationOverlayView.swift in Sources */,
+				A84BE065F2C5DE084BE62EC6 /* CommandHelpView.swift in Sources */,
+				155D34158DFBF51E89DB2BED /* DictionaryView.swift in Sources */,
+				01B4C8D5D9C3C7904E5C0C10 /* GeneralSettingsView.swift in Sources */,
+				0162F9F15E91F781D358220A /* SettingsView.swift in Sources */,
+				01B4C8D7D9C3C7904E5C0C11 /* UsageView.swift in Sources */,
+				A1B2C3D4E5F60123456789AB /* HistoryView.swift in Sources */,
+				B2C3D4E5F6012345678901CD /* HistoryStore.swift in Sources */,
+				C3D4E5F601234567890123EF /* AppToneMapper.swift in Sources */,
+				D4E5F6012345678901234501 /* AudioWaveformView.swift in Sources */,
+				E5F60123456789012345AABB /* RecordingPopupWindow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6E47D8604CFEB346EBE10B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAEC87B7F2BD1A74567E05FA /* DictationPipelineTests.swift in Sources */,
+				036EF0892AC114CC488F4B32 /* PerformancePrivacyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F88E447F059465D3E59DB0BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92A43FCDC807D939BA14FF36 /* DictationSessionTests.swift in Sources */,
+				652AAF95E879744E2C1BF1A4 /* VoiceCommandParserTests.swift in Sources */,
+				7AFEE06333190E57D4A2266C /* DictionaryStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		64FCEC16BCDBB8D72B05F41E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Voxify;
+			target = 236B23B4603B961DDD34F2D2 /* Voxify */;
+			targetProxy = 2147256B45E5C089F95F3DCC /* PBXContainerItemProxy */;
+		};
+		D2D52476DE0B6984BA89140B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Voxify;
+			target = 236B23B4603B961DDD34F2D2 /* Voxify */;
+			targetProxy = 3FC2E32F8AF486B3B720C2DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04DCBEB78E638A695A31AA03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voxify.app/Contents/MacOS/Voxify";
+			};
+			name = Debug;
+		};
+		09295174BEE45C2505D4278E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0B5469398FA1E0985EF98B08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Voxify/App/Voxify.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Voxify/Supporting/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voxify.app;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		3C1C52941DE2BBC514A44156 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4C1CA53E899346916FC6E3AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voxify.app/Contents/MacOS/Voxify";
+			};
+			name = Release;
+		};
+		76D02AEB9B2621D16D531D4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voxify.app/Contents/MacOS/Voxify";
+			};
+			name = Debug;
+		};
+		7A88777AE7254D505FEDA87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Voxify/App/Voxify.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Voxify/Supporting/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voxify.app;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		8EEE25C1A7C1E84A0C8FD0A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voxify.app/Contents/MacOS/Voxify";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1537F4C8410D2F9504A8C857 /* Build configuration list for PBXNativeTarget "VoxifyIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EEE25C1A7C1E84A0C8FD0A7 /* Release */,
+				04DCBEB78E638A695A31AA03 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F1261418218516D2C540580 /* Build configuration list for PBXNativeTarget "VoxifyUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C1CA53E899346916FC6E3AE /* Release */,
+				76D02AEB9B2621D16D531D4D /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC25DB4B316C6C59D55AB941 /* Build configuration list for PBXProject "Voxify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C1C52941DE2BBC514A44156 /* Debug */,
+				09295174BEE45C2505D4278E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFAD1101E502AF8D26720781 /* Build configuration list for PBXNativeTarget "Voxify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B5469398FA1E0985EF98B08 /* Release */,
+				7A88777AE7254D505FEDA87E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		381036983780819EAAA4A8C7 /* XCLocalSwiftPackageReference "ContextDetector" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ContextDetector;
+		};
+		3D74ECA321212AA8FEBE2E35 /* XCLocalSwiftPackageReference "Shared" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Shared;
+		};
+		78718A19871E584A6CD23287 /* XCLocalSwiftPackageReference "TextInserter" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/TextInserter;
+		};
+		9A8AC717924E385A9572C39B /* XCLocalSwiftPackageReference "AudioEngine" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/AudioEngine;
+		};
+		CB919B7336DF4D1AEAAEAEE0 /* XCLocalSwiftPackageReference "PolishingService" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/PolishingService;
+		};
+		CF8D131F588EE928B04D1969 /* XCLocalSwiftPackageReference "STTService" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/STTService;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03D363AE1B3B687D5706C03F /* TextInserter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 78718A19871E584A6CD23287 /* XCLocalSwiftPackageReference "TextInserter" */;
+			productName = TextInserter;
+		};
+		0D9E5C306009E8726E0D75F5 /* AudioEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A8AC717924E385A9572C39B /* XCLocalSwiftPackageReference "AudioEngine" */;
+			productName = AudioEngine;
+		};
+		1BA51CC333C793F2CD4554F1 /* Shared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D74ECA321212AA8FEBE2E35 /* XCLocalSwiftPackageReference "Shared" */;
+			productName = Shared;
+		};
+		21C004EEA3AC4924E1F7B53B /* AudioEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A8AC717924E385A9572C39B /* XCLocalSwiftPackageReference "AudioEngine" */;
+			productName = AudioEngine;
+		};
+		2F92A88DD2795C493AF93A4C /* AudioEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A8AC717924E385A9572C39B /* XCLocalSwiftPackageReference "AudioEngine" */;
+			productName = AudioEngine;
+		};
+		314239FC100568B7E3F55598 /* STTService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF8D131F588EE928B04D1969 /* XCLocalSwiftPackageReference "STTService" */;
+			productName = STTService;
+		};
+		38DB8EC3E1F60E617381D741 /* TextInserter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 78718A19871E584A6CD23287 /* XCLocalSwiftPackageReference "TextInserter" */;
+			productName = TextInserter;
+		};
+		4107A459BAD27EF7AB21BBA9 /* TextInserter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 78718A19871E584A6CD23287 /* XCLocalSwiftPackageReference "TextInserter" */;
+			productName = TextInserter;
+		};
+		42CC036FFCB7ABB3E40C06FA /* ContextDetector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 381036983780819EAAA4A8C7 /* XCLocalSwiftPackageReference "ContextDetector" */;
+			productName = ContextDetector;
+		};
+		45BDEA165171FB859123FD26 /* PolishingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB919B7336DF4D1AEAAEAEE0 /* XCLocalSwiftPackageReference "PolishingService" */;
+			productName = PolishingService;
+		};
+		5F69607AC3655C376AD8279F /* PolishingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB919B7336DF4D1AEAAEAEE0 /* XCLocalSwiftPackageReference "PolishingService" */;
+			productName = PolishingService;
+		};
+		6D9DAEB3B8AF81F224EE2C93 /* PolishingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB919B7336DF4D1AEAAEAEE0 /* XCLocalSwiftPackageReference "PolishingService" */;
+			productName = PolishingService;
+		};
+		77327930282F9CF16ACDEE73 /* ContextDetector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 381036983780819EAAA4A8C7 /* XCLocalSwiftPackageReference "ContextDetector" */;
+			productName = ContextDetector;
+		};
+		89360AA34C44186B531281A6 /* STTService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF8D131F588EE928B04D1969 /* XCLocalSwiftPackageReference "STTService" */;
+			productName = STTService;
+		};
+		93F952E8D5611D71295AD862 /* ContextDetector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 381036983780819EAAA4A8C7 /* XCLocalSwiftPackageReference "ContextDetector" */;
+			productName = ContextDetector;
+		};
+		9B4D0A5E401573C5306670E9 /* Shared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D74ECA321212AA8FEBE2E35 /* XCLocalSwiftPackageReference "Shared" */;
+			productName = Shared;
+		};
+		9CDA6C20432B4B8FEF3377DD /* STTService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF8D131F588EE928B04D1969 /* XCLocalSwiftPackageReference "STTService" */;
+			productName = STTService;
+		};
+		A4F351066A80607757EDC4FC /* Shared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D74ECA321212AA8FEBE2E35 /* XCLocalSwiftPackageReference "Shared" */;
+			productName = Shared;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = E94A0B4B89F37B378711A400 /* Project object */;
+}
