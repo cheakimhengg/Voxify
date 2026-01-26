@@ -5,8 +5,12 @@ struct HomeDashboardView: View {
     @State private var statistics: HistoryStatistics?
     @State private var recentEntries: [DictationHistoryEntry] = []
     @State private var todayWordCount: Int = 0
+    @State private var language: String = SettingsStore().load().interfaceLanguage
+    @State private var settings: VoxifySettings = SettingsStore().load()
 
     private let historyStore = HistoryStore()
+
+    private var isKhmer: Bool { language == "Khmer" }
 
     var body: some View {
         ScrollView {
@@ -21,7 +25,7 @@ struct HomeDashboardView: View {
                 HStack(alignment: .top, spacing: 20) {
                     // Weekly activity chart
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Weekly Activity")
+                        Text(isKhmer ? "សកម្មភាពប្រចាំសប្តាហ៍" : "Weekly Activity")
                             .font(.system(size: 14, weight: .semibold))
 
                         WeeklyActivityChart(dailyCounts: statistics?.dailyWordCounts ?? [:])
@@ -34,21 +38,21 @@ struct HomeDashboardView: View {
 
                     // Quick actions
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Quick Start")
+                        Text(isKhmer ? "ចាប់ផ្តើមរហ័ស" : "Quick Start")
                             .font(.system(size: 14, weight: .semibold))
 
                         VStack(spacing: 8) {
                             QuickActionCard(
-                                title: "Voice Insert",
-                                subtitle: "Hold to record and insert text",
+                                title: isKhmer ? "បញ្ចូលសំឡេង" : "Voice Insert",
+                                subtitle: isKhmer ? "សង្កត់ដើម្បីថតនិងបញ្ចូលអត្ថបទ" : "Hold to record and insert text",
                                 icon: "mic.fill",
-                                hotkey: "Hold Ctrl"
+                                hotkey: settings.holdToTalkHotkey.readableString
                             )
                             QuickActionCard(
-                                title: "Free Hand Mode",
-                                subtitle: "Continuous dictation",
+                                title: isKhmer ? "របៀបស្វ័យប្រវត្តិ" : "Free Hand Mode",
+                                subtitle: isKhmer ? "សរសេរដោយស្វ័យប្រវត្តិ" : "Continuous dictation",
                                 icon: "waveform",
-                                hotkey: "Ctrl+Shift"
+                                hotkey: settings.handsFreeHotkey.readableString
                             )
                         }
                     }
@@ -65,6 +69,10 @@ struct HomeDashboardView: View {
         .onAppear {
             loadData()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .voxifySettingsDidChange)) { _ in
+            settings = SettingsStore().load()
+            language = settings.interfaceLanguage
+        }
     }
 
     // MARK: - Welcome Header
@@ -74,7 +82,7 @@ struct HomeDashboardView: View {
             Text(greeting)
                 .font(.system(size: 28, weight: .bold))
 
-            Text("Speak naturally, write perfectly \u{2013} in any app.")
+            Text(isKhmer ? "និយាយធម្មតា សរសេរល្អឥតខ្ចោះ \u{2013} ក្នុងកម្មវិធីណាមួយ។" : "Speak naturally, write perfectly \u{2013} in any app.")
                 .font(.system(size: 14))
                 .foregroundColor(.secondary)
         }
@@ -82,11 +90,20 @@ struct HomeDashboardView: View {
 
     private var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
-        switch hour {
-        case 5..<12: return "Good morning"
-        case 12..<17: return "Good afternoon"
-        case 17..<22: return "Good evening"
-        default: return "Hello"
+        if isKhmer {
+            switch hour {
+            case 5..<12: return "អរុណសួស្តី"
+            case 12..<17: return "ទិវាសួស្តី"
+            case 17..<22: return "សាយ័ណសួស្តី"
+            default: return "សួស្តី"
+            }
+        } else {
+            switch hour {
+            case 5..<12: return "Good morning"
+            case 12..<17: return "Good afternoon"
+            case 17..<22: return "Good evening"
+            default: return "Hello"
+            }
         }
     }
 
@@ -102,25 +119,25 @@ struct HomeDashboardView: View {
             StatCard(
                 icon: "text.word.spacing",
                 value: formatNumber(statistics?.totalWords ?? 0),
-                label: "Total Words",
+                label: isKhmer ? "ពាក្យសរុប" : "Total Words",
                 iconColor: .blue
             )
             StatCard(
                 icon: "waveform",
                 value: "\(statistics?.totalEntries ?? 0)",
-                label: "Sessions",
+                label: isKhmer ? "វគ្គ" : "Sessions",
                 iconColor: .purple
             )
             StatCard(
                 icon: "clock.arrow.circlepath",
                 value: formatMinutes(statistics?.estimatedTimeSavedMinutes ?? 0),
-                label: "Time Saved",
+                label: isKhmer ? "ពេលសន្សំ" : "Time Saved",
                 iconColor: .green
             )
             StatCard(
                 icon: "calendar",
                 value: formatNumber(todayWordCount),
-                label: "Today's Words",
+                label: isKhmer ? "ពាក្យថ្ងៃនេះ" : "Today's Words",
                 iconColor: .orange
             )
         }
@@ -131,7 +148,7 @@ struct HomeDashboardView: View {
     private var recentDictationsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recent Dictations")
+                Text(isKhmer ? "ការសរសេរថ្មីៗ" : "Recent Dictations")
                     .font(.system(size: 14, weight: .semibold))
 
                 Spacer()

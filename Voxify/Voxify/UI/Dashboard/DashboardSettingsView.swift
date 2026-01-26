@@ -5,7 +5,6 @@ enum SettingsTab: String, CaseIterable, Identifiable {
     case account
     case settings
     case personalization
-    case about
 
     var id: String { rawValue }
 
@@ -14,7 +13,6 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .account: return "Account"
         case .settings: return "Settings"
         case .personalization: return "Personalization"
-        case .about: return "About"
         }
     }
 
@@ -23,7 +21,6 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .account: return "person.circle"
         case .settings: return "gearshape"
         case .personalization: return "paintbrush"
-        case .about: return "info.circle"
         }
     }
 }
@@ -39,7 +36,7 @@ struct DashboardSettingsView: View {
         HStack(spacing: 0) {
             // Sidebar
             settingsSidebar
-                .frame(width: 180)
+                .frame(width: 200)
                 .background(Color(NSColor.windowBackgroundColor))
 
             Divider()
@@ -64,9 +61,10 @@ struct DashboardSettingsView: View {
     private var settingsSidebar: some View {
         VStack(alignment: .leading, spacing: 4) {
             ForEach(SettingsTab.allCases) { tab in
-                SettingsTabButton(
+                SettingsTabButtonLocalized(
                     tab: tab,
-                    isSelected: selectedTab == tab
+                    isSelected: selectedTab == tab,
+                    isKhmer: settings.interfaceLanguage == "Khmer"
                 ) {
                     selectedTab = tab
                 }
@@ -78,8 +76,14 @@ struct DashboardSettingsView: View {
             Divider()
                 .padding(.vertical, 8)
 
-            ExternalLinkButton(title: "Help center", icon: "questionmark.circle")
-            ExternalLinkButton(title: "Release notes", icon: "doc.text")
+            ExternalLinkButton(
+                title: settings.interfaceLanguage == "Khmer" ? "មជ្ឈមណ្ឌលជំនួយ" : "Help center",
+                icon: "questionmark.circle"
+            )
+            ExternalLinkButton(
+                title: settings.interfaceLanguage == "Khmer" ? "កំណត់ចំណាំកំណែ" : "Release notes",
+                icon: "doc.text"
+            )
         }
         .padding(12)
     }
@@ -95,8 +99,6 @@ struct DashboardSettingsView: View {
             SettingsTabView(settings: $settings)
         case .personalization:
             PersonalizationTabView(settings: $settings)
-        case .about:
-            AboutTabView()
         }
     }
 }
@@ -116,6 +118,47 @@ private struct SettingsTabButton: View {
                     .frame(width: 20)
 
                 Text(tab.title)
+                    .font(.system(size: 13))
+
+                Spacer()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(isSelected ? Color.accentColor.opacity(0.15) : Color.clear)
+            )
+            .foregroundColor(isSelected ? .accentColor : .primary)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+private struct SettingsTabButtonLocalized: View {
+    let tab: SettingsTab
+    let isSelected: Bool
+    let isKhmer: Bool
+    let action: () -> Void
+
+    private var localizedTitle: String {
+        if isKhmer {
+            switch tab {
+            case .account: return "គណនី"
+            case .settings: return "ការកំណត់"
+            case .personalization: return "ការកំណត់ផ្ទាល់ខ្លួន"
+            }
+        }
+        return tab.title
+    }
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 10) {
+                Image(systemName: tab.icon)
+                    .font(.system(size: 14))
+                    .frame(width: 20)
+
+                Text(localizedTitle)
                     .font(.system(size: 13))
 
                 Spacer()
@@ -252,53 +295,58 @@ private struct AccountTabView: View {
 
 private struct SettingsTabView: View {
     @Binding var settings: VoxifySettings
-
-    // Available hotkey options
-    private let hotkeyOptions = ["Ctrl", "Fn", "Option", "Command", "Shift"]
-    private let handsFreeOptions = ["Ctrl+Shift", "Fn+Space", "Option+Space", "Command+Shift", "Ctrl+Space"]
+    @State private var showResetAlert = false
+    private let settingsStore = SettingsStore()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             // Header
-            Text("Settings")
+            Text(settings.interfaceLanguage == "Khmer" ? "ការកំណត់" : "Settings")
                 .font(.system(size: 24, weight: .bold))
 
             // Keyboard shortcuts section
-            SettingsSection(title: "Keyboard shortcuts", icon: "keyboard") {
+            SettingsSection(
+                title: settings.interfaceLanguage == "Khmer" ? "ផ្លូវកាត់ក្តារចុច" : "Keyboard shortcuts",
+                icon: "keyboard"
+            ) {
                 VStack(spacing: 16) {
-                    EditableShortcutRow(
-                        title: "Dictation",
-                        description: "Hold down to speak. Release to insert text.",
-                        selection: Binding(
-                            get: { settings.hotkey ?? "Ctrl" },
-                            set: { settings.hotkey = $0 }
-                        ),
-                        options: hotkeyOptions
+                    HotkeySettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "សង្កត់ដើម្បីនិយាយ" : "Hold to Talk",
+                        description: settings.interfaceLanguage == "Khmer" ? "សង្កត់ដើម្បីនិយាយ។ លែងដើម្បីបញ្ចូលអត្ថបទ។" : "Hold down to speak. Release to insert text.",
+                        hotkeyConfig: $settings.holdToTalkHotkey
                     )
 
                     Divider()
 
-                    EditableShortcutRow(
-                        title: "Hands-free mode",
-                        description: "Press once to start speaking without holding. Press again to stop.",
-                        selection: $settings.handsFreeModeHotkey,
-                        options: handsFreeOptions
+                    HotkeySettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "របៀបដោយស្វ័យប្រវត្តិ" : "Hands-free Mode",
+                        description: settings.interfaceLanguage == "Khmer" ? "ចុចម្តងដើម្បីចាប់ផ្តើមនិយាយ។ ចុចម្តងទៀតដើម្បីបញ្ឈប់។" : "Press once to start speaking. Press again to stop.",
+                        hotkeyConfig: $settings.handsFreeHotkey
+                    )
+
+                    Divider()
+
+                    HotkeySettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "អានឮ (TTS)" : "Read Aloud (TTS)",
+                        description: settings.interfaceLanguage == "Khmer" ? "អានអត្ថបទចុងក្រោយឬអត្ថបទដែលបានជ្រើសរើស។" : "Read the last dictated or selected text aloud.",
+                        hotkeyConfig: $settings.ttsHotkey
                     )
                 }
             }
 
             // Language section
-            SettingsSection(title: "Language", icon: "globe") {
+            SettingsSection(
+                title: settings.interfaceLanguage == "Khmer" ? "ភាសា" : "Language",
+                icon: "globe"
+            ) {
                 VStack(spacing: 16) {
-                    SettingsRow(title: "Interface language", description: "Choose the language used in the user interface.") {
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "ភាសាចំណុចប្រទាក់" : "Interface language",
+                        description: settings.interfaceLanguage == "Khmer" ? "ជ្រើសរើសភាសាសម្រាប់កម្មវិធី។" : "Choose the language for the app interface."
+                    ) {
                         Picker("", selection: $settings.interfaceLanguage) {
                             Text("English").tag("English")
-                            Text("Spanish").tag("Spanish")
-                            Text("French").tag("French")
-                            Text("German").tag("German")
-                            Text("Chinese").tag("Chinese")
-                            Text("Japanese").tag("Japanese")
-                            Text("Korean").tag("Korean")
+                            Text("ខ្មែរ (Khmer)").tag("Khmer")
                         }
                         .pickerStyle(.menu)
                         .frame(width: 150)
@@ -306,24 +354,34 @@ private struct SettingsTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Speech recognition", description: "Language hint for better accuracy.") {
-                        TextField("Auto-detect", text: Binding(
-                            get: { settings.languageHint ?? "" },
-                            set: { settings.languageHint = $0.isEmpty ? nil : $0 }
-                        ))
-                        .textFieldStyle(.plain)
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "ការសម្គាល់សម្រាប់សំឡេង" : "Speech recognition hint",
+                        description: settings.interfaceLanguage == "Khmer" ? "ភាសាសម្រាប់ការសម្គាល់សំឡេង។" : "Language hint for better accuracy."
+                    ) {
+                        Picker("", selection: Binding(
+                            get: { settings.languageHint ?? "auto" },
+                            set: { settings.languageHint = $0 == "auto" ? nil : $0 }
+                        )) {
+                            Text(settings.interfaceLanguage == "Khmer" ? "ស្វ័យប្រវត្តិ" : "Auto-detect").tag("auto")
+                            Text("English").tag("en-US")
+                            Text("ខ្មែរ").tag("km-KH")
+                        }
+                        .pickerStyle(.menu)
                         .frame(width: 150)
-                        .padding(6)
-                        .background(Color(NSColor.controlBackgroundColor))
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
                     }
                 }
             }
 
             // Audio section
-            SettingsSection(title: "Audio", icon: "speaker.wave.2") {
+            SettingsSection(
+                title: settings.interfaceLanguage == "Khmer" ? "សំឡេង" : "Audio",
+                icon: "speaker.wave.2"
+            ) {
                 VStack(spacing: 16) {
-                    SettingsRow(title: "Beep on start/stop", description: "Play a sound when dictation starts and stops.") {
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "សំឡេងបើក/បិទ" : "Beep on start/stop",
+                        description: settings.interfaceLanguage == "Khmer" ? "លេងសំឡេងនៅពេលចាប់ផ្តើម/បញ្ឈប់។" : "Play a sound when dictation starts and stops."
+                    ) {
                         Toggle("", isOn: $settings.beepEnabled)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -331,7 +389,10 @@ private struct SettingsTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Show audio waveform", description: "Display animated waveform during recording.") {
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "បង្ហាញរលកសំឡេង" : "Show audio waveform",
+                        description: settings.interfaceLanguage == "Khmer" ? "បង្ហាញរលកសំឡេងនៅពេលថត។" : "Display animated waveform during recording."
+                    ) {
                         Toggle("", isOn: $settings.showAudioWaveform)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -339,7 +400,10 @@ private struct SettingsTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Pause threshold", description: "Seconds of silence before auto-stopping.") {
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "រយៈពេលផ្អាក" : "Pause threshold",
+                        description: settings.interfaceLanguage == "Khmer" ? "វិនាទីនៃភាពស្ងាត់មុនពេលបញ្ឈប់។" : "Seconds of silence before auto-stopping."
+                    ) {
                         HStack {
                             TextField("", value: $settings.pauseThresholdSeconds, format: .number)
                                 .textFieldStyle(.plain)
@@ -348,13 +412,83 @@ private struct SettingsTabView: View {
                                 .background(Color(NSColor.controlBackgroundColor))
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
 
-                            Text("sec")
+                            Text(settings.interfaceLanguage == "Khmer" ? "វិនាទី" : "sec")
                                 .foregroundColor(.secondary)
                                 .font(.system(size: 12))
                         }
                     }
                 }
             }
+
+            // Text-to-Speech section
+            SettingsSection(
+                title: settings.interfaceLanguage == "Khmer" ? "អានជាសំឡេង" : "Text-to-Speech",
+                icon: "speaker.wave.3"
+            ) {
+                VStack(spacing: 16) {
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "បើក TTS" : "Enable TTS",
+                        description: settings.interfaceLanguage == "Khmer" ? "អនុញ្ញាតឱ្យអានជាសំឡេង។" : "Allow reading text aloud with keyboard shortcut."
+                    ) {
+                        Toggle("", isOn: $settings.ttsEnabled)
+                            .toggleStyle(.switch)
+                            .labelsHidden()
+                    }
+
+                    Divider()
+
+                    SettingsRow(
+                        title: settings.interfaceLanguage == "Khmer" ? "ល្បឿនអាន" : "Speech rate",
+                        description: settings.interfaceLanguage == "Khmer" ? "ល្បឿនក្នុងការអានអត្ថបទ។" : "How fast the text is read."
+                    ) {
+                        HStack {
+                            Slider(value: $settings.ttsRate, in: 0.1...1.0, step: 0.1)
+                                .frame(width: 120)
+
+                            Text(String(format: "%.1fx", settings.ttsRate * 2))
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundColor(.secondary)
+                                .frame(width: 40)
+                        }
+                    }
+                }
+            }
+
+            // Reset section
+            SettingsSection(
+                title: settings.interfaceLanguage == "Khmer" ? "កំណត់ឡើងវិញ" : "Reset",
+                icon: "arrow.counterclockwise"
+            ) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(settings.interfaceLanguage == "Khmer" ? "កំណត់ការកំណត់ទាំងអស់ឡើងវិញ" : "Reset all settings")
+                            .font(.system(size: 13, weight: .medium))
+                        Text(settings.interfaceLanguage == "Khmer" ? "ស្តារការកំណត់ទាំងអស់ទៅតម្លៃដើម។" : "Restore all settings to their default values.")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+
+                    Button(settings.interfaceLanguage == "Khmer" ? "កំណត់ឡើងវិញ" : "Reset") {
+                        showResetAlert = true
+                    }
+                    .buttonStyle(.bordered)
+                    .foregroundColor(.red)
+                }
+            }
+        }
+        .alert(
+            settings.interfaceLanguage == "Khmer" ? "កំណត់ការកំណត់ឡើងវិញ?" : "Reset Settings?",
+            isPresented: $showResetAlert
+        ) {
+            Button(settings.interfaceLanguage == "Khmer" ? "បោះបង់" : "Cancel", role: .cancel) {}
+            Button(settings.interfaceLanguage == "Khmer" ? "កំណត់ឡើងវិញ" : "Reset", role: .destructive) {
+                settingsStore.resetToDefaults()
+                settings = settingsStore.load()
+            }
+        } message: {
+            Text(settings.interfaceLanguage == "Khmer" ? "នេះនឹងកំណត់ការកំណត់ទាំងអស់ទៅតម្លៃដើម។" : "This will reset all settings to their default values.")
         }
     }
 }
@@ -455,66 +589,6 @@ private struct PersonalizationTabView: View {
                     }
                 }
             }
-        }
-    }
-}
-
-// MARK: - About Tab
-
-private struct AboutTabView: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            // Header
-            Text("About")
-                .font(.system(size: 24, weight: .bold))
-
-            // App info
-            HStack(spacing: 16) {
-                Image(systemName: "waveform.circle.fill")
-                    .font(.system(size: 64))
-                    .foregroundStyle(.linearGradient(
-                        colors: [.blue, .purple],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ))
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Voxify")
-                        .font(.system(size: 24, weight: .bold))
-
-                    Text("Version 1.0.0")
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
-
-                    Text("Free and open-source voice dictation for macOS")
-                        .font(.system(size: 13))
-                        .foregroundColor(.secondary)
-                }
-            }
-            .padding(20)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(NSColor.controlBackgroundColor))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            // Credits
-            SettingsSection(title: "Credits", icon: "heart") {
-                VStack(alignment: .leading, spacing: 12) {
-                    CreditItem(name: "Whisper", description: "OpenAI's speech recognition")
-                    CreditItem(name: "SwiftUI", description: "Apple's UI framework")
-                    CreditItem(name: "macOS Accessibility", description: "Text insertion APIs")
-                }
-            }
-
-            // Links
-            SettingsSection(title: "Links", icon: "link") {
-                VStack(spacing: 12) {
-                    LinkRow(title: "GitHub Repository", url: "https://github.com/voxify/voxify")
-                    LinkRow(title: "Report an Issue", url: "https://github.com/voxify/voxify/issues")
-                    LinkRow(title: "License (MIT)", url: "https://opensource.org/licenses/MIT")
-                }
-            }
-
-            Spacer()
         }
     }
 }
@@ -666,54 +740,6 @@ private struct EditableShortcutRow: View {
             .menuStyle(.borderlessButton)
             .fixedSize()
         }
-    }
-}
-
-private struct CreditItem: View {
-    let name: String
-    let description: String
-
-    var body: some View {
-        HStack(spacing: 8) {
-            Text("\u{2022}")
-                .foregroundColor(.accentColor)
-
-            Text(name)
-                .font(.system(size: 13, weight: .medium))
-
-            Text("-")
-                .foregroundColor(.secondary)
-
-            Text(description)
-                .font(.system(size: 13))
-                .foregroundColor(.secondary)
-        }
-    }
-}
-
-private struct LinkRow: View {
-    let title: String
-    let url: String
-
-    var body: some View {
-        Button(action: {
-            if let url = URL(string: url) {
-                NSWorkspace.shared.open(url)
-            }
-        }) {
-            HStack {
-                Text(title)
-                    .font(.system(size: 13))
-
-                Spacer()
-
-                Image(systemName: "arrow.up.right")
-                    .font(.system(size: 10))
-                    .foregroundColor(.secondary)
-            }
-        }
-        .buttonStyle(.plain)
-        .foregroundColor(.accentColor)
     }
 }
 

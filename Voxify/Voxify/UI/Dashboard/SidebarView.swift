@@ -4,6 +4,7 @@ import SwiftUI
 struct SidebarView: View {
     @Binding var selectedItem: NavigationItem
     @Binding var showSettings: Bool
+    @State private var language: String = SettingsStore().load().interfaceLanguage
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -18,7 +19,8 @@ struct SidebarView: View {
                 ForEach(NavigationItem.allCases) { item in
                     NavigationRow(
                         item: item,
-                        isSelected: selectedItem == item
+                        isSelected: selectedItem == item,
+                        language: language
                     ) {
                         selectedItem = item
                     }
@@ -33,7 +35,12 @@ struct SidebarView: View {
             footerSection
         }
         .background(Color(NSColor.windowBackgroundColor))
+        .onReceive(NotificationCenter.default.publisher(for: .voxifySettingsDidChange)) { _ in
+            language = SettingsStore().load().interfaceLanguage
+        }
     }
+
+    private var isKhmer: Bool { language == "Khmer" }
 
     // MARK: - Branding Header
 
@@ -50,7 +57,7 @@ struct SidebarView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Voxify")
                     .font(.system(size: 16, weight: .semibold))
-                Text("Voice Dictation")
+                Text(isKhmer ? "សរសេរដោយសំឡេង" : "Voice Dictation")
                     .font(.system(size: 11))
                     .foregroundColor(.secondary)
             }
@@ -72,7 +79,7 @@ struct SidebarView: View {
                         .font(.system(size: 14))
                         .frame(width: 20)
 
-                    Text("Settings")
+                    Text(isKhmer ? "ការកំណត់" : "Settings")
                         .font(.system(size: 13))
 
                     Spacer()
@@ -90,7 +97,7 @@ struct SidebarView: View {
                     .font(.system(size: 10))
                     .foregroundColor(.secondary)
                 Spacer()
-                Text("Open Source")
+                Text(isKhmer ? "ប្រភពបើកចំហ" : "Open Source")
                     .font(.system(size: 10))
                     .foregroundColor(.secondary)
             }
@@ -105,6 +112,7 @@ struct SidebarView: View {
 private struct NavigationRow: View {
     let item: NavigationItem
     let isSelected: Bool
+    let language: String
     let action: () -> Void
 
     var body: some View {
@@ -114,7 +122,7 @@ private struct NavigationRow: View {
                     .font(.system(size: 14))
                     .frame(width: 20)
 
-                Text(item.title)
+                Text(item.localizedTitle(language: language))
                     .font(.system(size: 13))
 
                 Spacer()

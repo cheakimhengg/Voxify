@@ -1,18 +1,21 @@
+import AppKit
 import Combine
 import Foundation
-import AppKit
+import TextInserter
 
 final class MenuBarController: ObservableObject {
     @Published private(set) var isDictating = false
     let viewModel: DictationViewModel
 
     private var cancellables = Set<AnyCancellable>()
-    private let hotkeyMonitor = HotkeyMonitor()
+    private let hotkeyMonitor: HotkeyMonitor
     private let settingsStore = SettingsStore()
+    private let ttsService = TTSService()
     private lazy var recordingPopup: RecordingPopupWindow = RecordingPopupWindow()
 
     init(viewModel: DictationViewModel = DictationViewModel()) {
         self.viewModel = viewModel
+        self.hotkeyMonitor = HotkeyMonitor(settingsStore: settingsStore)
 
         viewModel.$isActive
             .receive(on: DispatchQueue.main)
@@ -34,8 +37,13 @@ final class MenuBarController: ObservableObject {
         setupHotkeys()
     }
 
+    /// Reload hotkey settings (call when settings change)
+    func reloadHotkeys() {
+        hotkeyMonitor.loadSettings()
+    }
+
     private func setupHotkeys() {
-        // Ctrl hold - start recording
+        // Hold-to-talk: start recording on press
         hotkeyMonitor.onHoldStart = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -47,7 +55,7 @@ final class MenuBarController: ObservableObject {
             }
         }
 
-        // Ctrl release - stop recording and insert
+        // Hold-to-talk: stop recording on release
         hotkeyMonitor.onHoldEnd = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -61,7 +69,7 @@ final class MenuBarController: ObservableObject {
             }
         }
 
-        // Ctrl+Shift - toggle continuous (free hand) mode
+        // Hands-free: toggle continuous mode
         hotkeyMonitor.onToggleContinuous = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -78,6 +86,14 @@ final class MenuBarController: ObservableObject {
             }
         }
 
+        // TTS: read selected or last dictated text
+        hotkeyMonitor.onToggleTTS = { [weak self] in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.speakText()
+            }
+        }
+
         hotkeyMonitor.start()
     }
 
@@ -90,5 +106,37 @@ final class MenuBarController: ObservableObject {
             recordingPopup.update(isRecording: true, text: "", mode: "Hold")
             recordingPopup.showAtCenter()
         }
+    }
+
+    /// Speak the last dictated text or selected text
+    func speakText(_ text: String? = nil) {
+        let textToSpeak: String
+        if let text = text, !text.isEmpty {
+            textToSpeak = text
+        } else if !viewModel.polishedText.isEmpty {
+            textToSpeak = viewModel.polishedText
+        } else {
+            // Try to get selected text from active app
+            let inserter = TextInserter()
+            if let state = inserter.focusedTextState(),
+               let selectedText = state.selectedText,
+               !selectedText.isEmpty {
+                textToSpeak = selectedText
+            } else {
+                return
+            }
+        }
+
+        if ttsService.isSpeaking {
+            ttsService.stop()
+        } else {
+            let settings = settingsStore.load()
+            ttsService.speak(textToSpeak, voice: settings.ttsVoice, rate: settings.ttsRate)
+        }
+    }
+
+    /// Stop any ongoing TTS
+    func stopSpeaking() {
+        ttsService.stop()
     }
 }

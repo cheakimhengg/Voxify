@@ -45,7 +45,7 @@ struct SettingsModalView: View {
             // Settings content
             DashboardSettingsView()
         }
-        .frame(width: 750, height: 550)
+        .frame(width: 780, height: 550)
         .background(Color(NSColor.windowBackgroundColor))
     }
 }

@@ -52,6 +52,9 @@
 		CF4D66A75B507A9B7B762601 /* DictationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D560EC3F2856459712C852 /* DictationSession.swift */; };
 		E95360BD920B9F3AB425DF91 /* VoiceCommandParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CDC5657E079FCC2CD4A03E /* VoiceCommandParser.swift */; };
 		E5F60123456789012345AABB /* RecordingPopupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F60123456789012345AAAA /* RecordingPopupWindow.swift */; };
+		TTS001000000000000001 /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = TTS001000000000000000 /* TTSService.swift */; };
+		KEY001000000000000001 /* KeyCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = KEY001000000000000000 /* KeyCaptureView.swift */; };
+		L10N00100000000000001 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = L10N00100000000000000 /* Localization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +128,9 @@
 		FB37457662BF4F7B7D7D9B89 /* DictationSessionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationSessionTests.swift; sourceTree = "<group>"; };
 		FCEA13B0307168E374CDDEC2 /* PerformancePrivacyTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PerformancePrivacyTests.swift; sourceTree = "<group>"; };
 		FE72C972808670795BB15786 /* Voxify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voxify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		TTS001000000000000000 /* TTSService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
+		KEY001000000000000000 /* KeyCaptureView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeyCaptureView.swift; sourceTree = "<group>"; };
+		L10N00100000000000000 /* Localization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +172,8 @@
 				1DA3B98E44C7A7B44F81D2A1 /* UsageStore.swift */,
 				B2C3D4E5F6012345678901CC /* HistoryStore.swift */,
 				C3D4E5F601234567890123EE /* AppToneMapper.swift */,
+				TTS001000000000000000 /* TTSService.swift */,
+				L10N00100000000000000 /* Localization.swift */,
 			);
 			name = Services;
 			path = Services;
@@ -246,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				D4E5F6012345678901234500 /* AudioWaveformView.swift */,
+				KEY001000000000000000 /* KeyCaptureView.swift */,
 			);
 			name = Components;
 			path = Components;
@@ -567,6 +576,9 @@
 				C3D4E5F601234567890123EF /* AppToneMapper.swift in Sources */,
 				D4E5F6012345678901234501 /* AudioWaveformView.swift in Sources */,
 				E5F60123456789012345AABB /* RecordingPopupWindow.swift in Sources */,
+				TTS001000000000000001 /* TTSService.swift in Sources */,
+				KEY001000000000000001 /* KeyCaptureView.swift in Sources */,
+				L10N00100000000000001 /* Localization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
