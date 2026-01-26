@@ -110,6 +110,14 @@ final class MenuBarController: ObservableObject {
 
     /// Speak the last dictated text or selected text
     func speakText(_ text: String? = nil) {
+        let settings = settingsStore.load()
+
+        // Check if TTS is enabled
+        guard settings.ttsEnabled else {
+            print("[TTS] TTS is disabled in settings")
+            return
+        }
+
         let textToSpeak: String
         if let text = text, !text.isEmpty {
             textToSpeak = text
@@ -123,14 +131,16 @@ final class MenuBarController: ObservableObject {
                !selectedText.isEmpty {
                 textToSpeak = selectedText
             } else {
+                print("[TTS] No text to speak")
                 return
             }
         }
 
+        print("[TTS] Speaking: \(textToSpeak.prefix(50))...")
+
         if ttsService.isSpeaking {
             ttsService.stop()
         } else {
-            let settings = settingsStore.load()
             ttsService.speak(textToSpeak, voice: settings.ttsVoice, rate: settings.ttsRate)
         }
     }

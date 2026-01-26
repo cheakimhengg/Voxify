@@ -2,15 +2,19 @@ import SwiftUI
 
 /// Information view showing about, shortcuts, commands, and credits
 struct InformationView: View {
+    @State private var language: String = SettingsStore().load().interfaceLanguage
+
+    private var isKhmer: Bool { language == "Khmer" }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 // Header
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Information")
+                    Text(isKhmer ? "ព័ត៌មាន" : "Information")
                         .font(.system(size: 28, weight: .bold))
 
-                    Text("Learn about Voxify and how to use it effectively.")
+                    Text(isKhmer ? "ស្វែងយល់អំពី Voxify និងរបៀបប្រើប្រាស់។" : "Learn about Voxify and how to use it effectively.")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
                 }
@@ -29,13 +33,16 @@ struct InformationView: View {
             }
             .padding(24)
         }
+        .onReceive(NotificationCenter.default.publisher(for: .voxifySettingsDidChange)) { _ in
+            language = SettingsStore().load().interfaceLanguage
+        }
     }
 
     // MARK: - About Section
 
     private var aboutSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "About Voxify", icon: "info.circle")
+            SectionHeader(title: isKhmer ? "អំពី Voxify" : "About Voxify", icon: "info.circle")
 
             HStack(spacing: 16) {
                 Image(systemName: "waveform.circle.fill")
@@ -50,11 +57,11 @@ struct InformationView: View {
                     Text("Voxify")
                         .font(.system(size: 18, weight: .semibold))
 
-                    Text("Version 1.0.0")
+                    Text(isKhmer ? "កំណែ 1.0.0" : "Version 1.0.0")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
 
-                    Text("Free and open-source voice dictation for macOS")
+                    Text(isKhmer ? "កម្មវិធីសរសេរដោយសំឡេងឥតគិតថ្លៃសម្រាប់ macOS" : "Free and open-source voice dictation for macOS")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }
@@ -70,22 +77,22 @@ struct InformationView: View {
 
     private var keyboardShortcutsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Keyboard Shortcuts", icon: "keyboard")
+            SectionHeader(title: isKhmer ? "ផ្លូវកាត់ក្តារចុច" : "Keyboard Shortcuts", icon: "keyboard")
 
             VStack(spacing: 0) {
                 ShortcutRow(
-                    shortcut: "Hold Ctrl",
-                    description: "Voice Insert Mode - Hold to record, release to insert"
+                    shortcut: isKhmer ? "សង្កត់ Ctrl" : "Hold Ctrl",
+                    description: isKhmer ? "សង្កត់ដើម្បីថត លែងដើម្បីបញ្ចូល" : "Voice Insert Mode - Hold to record, release to insert"
                 )
                 Divider()
                 ShortcutRow(
                     shortcut: "Ctrl + Shift",
-                    description: "Free Hand Mode - Toggle continuous dictation"
+                    description: isKhmer ? "បើក/បិទរបៀបដោយស្វ័យប្រវត្តិ" : "Free Hand Mode - Toggle continuous dictation"
                 )
                 Divider()
                 ShortcutRow(
                     shortcut: "Esc",
-                    description: "Cancel current dictation"
+                    description: isKhmer ? "បោះបង់ការសរសេរបច្ចុប្បន្ន" : "Cancel current dictation"
                 )
             }
             .background(Color(NSColor.controlBackgroundColor))
@@ -97,22 +104,43 @@ struct InformationView: View {
 
     private var voiceCommandsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Voice Commands", icon: "mic")
+            SectionHeader(title: isKhmer ? "ពាក្យបញ្ជាសំឡេង" : "Voice Commands", icon: "mic")
 
             VStack(spacing: 0) {
-                CommandRow(command: "command: undo", description: "Undo the last change")
+                CommandRow(
+                    command: "command: undo",
+                    description: isKhmer ? "ត្រឡប់ការផ្លាស់ប្តូរចុងក្រោយ" : "Undo the last change"
+                )
                 Divider()
-                CommandRow(command: "command: redo", description: "Redo the last change")
+                CommandRow(
+                    command: "command: redo",
+                    description: isKhmer ? "ធ្វើវិញនូវការផ្លាស់ប្តូរចុងក្រោយ" : "Redo the last change"
+                )
                 Divider()
-                CommandRow(command: "command: new line", description: "Insert a line break")
+                CommandRow(
+                    command: "command: new line",
+                    description: isKhmer ? "បញ្ចូលបន្ទាត់ថ្មី" : "Insert a line break"
+                )
                 Divider()
-                CommandRow(command: "command: new paragraph", description: "Insert a paragraph break")
+                CommandRow(
+                    command: "command: new paragraph",
+                    description: isKhmer ? "បញ្ចូលកថាខណ្ឌថ្មី" : "Insert a paragraph break"
+                )
                 Divider()
-                CommandRow(command: "command: delete last sentence", description: "Remove the most recent sentence")
+                CommandRow(
+                    command: "command: delete last sentence",
+                    description: isKhmer ? "លុបប្រយោគចុងក្រោយ" : "Remove the most recent sentence"
+                )
                 Divider()
-                CommandRow(command: "command: format bullets", description: "Format selection as bullets")
+                CommandRow(
+                    command: "command: format bullets",
+                    description: isKhmer ? "ធ្វើទម្រង់ជាចំណុច" : "Format selection as bullets"
+                )
                 Divider()
-                CommandRow(command: "command: format numbered", description: "Format as numbered list")
+                CommandRow(
+                    command: "command: format numbered",
+                    description: isKhmer ? "ធ្វើទម្រង់ជាលេខ" : "Format as numbered list"
+                )
             }
             .background(Color(NSColor.controlBackgroundColor))
             .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -123,19 +151,19 @@ struct InformationView: View {
 
     private var creditsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Open Source", icon: "heart")
+            SectionHeader(title: isKhmer ? "ប្រភពបើកចំហ" : "Open Source", icon: "heart")
 
             VStack(alignment: .leading, spacing: 16) {
-                Text("Voxify is free and open-source software, built with love for the macOS community.")
+                Text(isKhmer ? "Voxify គឺជាកម្មវិធីឥតគិតថ្លៃនិងប្រភពបើកចំហ។" : "Voxify is free and open-source software, built with love for the macOS community.")
                     .font(.system(size: 13))
 
-                Text("Made possible by:")
+                Text(isKhmer ? "អាចធ្វើបានដោយ:" : "Made possible by:")
                     .font(.system(size: 12, weight: .semibold))
 
                 VStack(alignment: .leading, spacing: 8) {
-                    CreditRow(name: "Whisper", description: "OpenAI's speech recognition model")
-                    CreditRow(name: "SwiftUI", description: "Apple's declarative UI framework")
-                    CreditRow(name: "macOS Accessibility APIs", description: "For text insertion")
+                    CreditRow(name: "Whisper", description: isKhmer ? "ម៉ូដែលសម្គាល់សំឡេងរបស់ OpenAI" : "OpenAI's speech recognition model")
+                    CreditRow(name: "SwiftUI", description: isKhmer ? "ក្របខ័ណ្ឌ UI របស់ Apple" : "Apple's declarative UI framework")
+                    CreditRow(name: "macOS Accessibility APIs", description: isKhmer ? "សម្រាប់បញ្ចូលអត្ថបទ" : "For text insertion")
                 }
 
                 Divider()
@@ -143,7 +171,7 @@ struct InformationView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "star")
                         .foregroundColor(.yellow)
-                    Text("If you find Voxify useful, consider starring the project on GitHub!")
+                    Text(isKhmer ? "ប្រសិនបើអ្នកចូលចិត្ត Voxify សូមផ្តល់ផ្កាយនៅ GitHub!" : "If you find Voxify useful, consider starring the project on GitHub!")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }

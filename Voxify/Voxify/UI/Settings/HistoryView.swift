@@ -7,8 +7,11 @@ struct HistoryView: View {
     @State private var searchQuery = ""
     @State private var selectedEntry: DictationHistoryEntry?
     @State private var showDeleteConfirmation = false
+    @State private var language: String = SettingsStore().load().interfaceLanguage
 
     private let historyStore = HistoryStore()
+
+    private var isKhmer: Bool { language == "Khmer" }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -27,6 +30,9 @@ struct HistoryView: View {
         .onAppear {
             loadHistory()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .voxifySettingsDidChange)) { _ in
+            language = SettingsStore().load().interfaceLanguage
+        }
     }
 
     // MARK: - Toolbar
@@ -37,7 +43,7 @@ struct HistoryView: View {
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                TextField("Search history...", text: $searchQuery)
+                TextField(isKhmer ? "ស្វែងរកប្រវត្តិ..." : "Search history...", text: $searchQuery)
                     .textFieldStyle(.plain)
 
                 if !searchQuery.isEmpty {
@@ -57,8 +63,8 @@ struct HistoryView: View {
             // Stats summary
             if !entries.isEmpty {
                 HStack(spacing: 16) {
-                    StatBadge(value: "\(totalWords)", label: "words")
-                    StatBadge(value: "\(entries.count)", label: "dictations")
+                    StatBadge(value: "\(totalWords)", label: isKhmer ? "ពាក្យ" : "words")
+                    StatBadge(value: "\(entries.count)", label: isKhmer ? "ការសរសេរ" : "dictations")
                 }
             }
 
@@ -68,18 +74,18 @@ struct HistoryView: View {
                     Image(systemName: "trash")
                 }
                 .buttonStyle(.bordered)
-                .help("Clear all history")
+                .help(isKhmer ? "សម្អាតប្រវត្តិទាំងអស់" : "Clear all history")
             }
         }
         .padding(12)
-        .alert("Clear History", isPresented: $showDeleteConfirmation) {
-            Button("Cancel", role: .cancel) {}
-            Button("Clear All", role: .destructive) {
+        .alert(isKhmer ? "សម្អាតប្រវត្តិ" : "Clear History", isPresented: $showDeleteConfirmation) {
+            Button(isKhmer ? "បោះបង់" : "Cancel", role: .cancel) {}
+            Button(isKhmer ? "សម្អាតទាំងអស់" : "Clear All", role: .destructive) {
                 historyStore.clearAll()
                 loadHistory()
             }
         } message: {
-            Text("This will permanently delete all dictation history. This action cannot be undone.")
+            Text(isKhmer ? "នេះនឹងលុបប្រវត្តិទាំងអស់។ សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។" : "This will permanently delete all dictation history. This action cannot be undone.")
         }
     }
 
@@ -91,28 +97,28 @@ struct HistoryView: View {
                 ForEach(groupedEntries, id: \.key) { dateKey, dayEntries in
                     Section {
                         ForEach(dayEntries) { entry in
-                            HistoryEntryRow(entry: entry, isSelected: selectedEntry?.id == entry.id)
+                            HistoryEntryRow(entry: entry, isSelected: selectedEntry?.id == entry.id, isKhmer: isKhmer)
                                 .onTapGesture {
                                     withAnimation(.easeOut(duration: 0.15)) {
                                         selectedEntry = selectedEntry?.id == entry.id ? nil : entry
                                     }
                                 }
                                 .contextMenu {
-                                    Button("Copy Text") {
+                                    Button(isKhmer ? "ចម្លងអត្ថបទ" : "Copy Text") {
                                         copyToClipboard(entry.polishedText)
                                     }
-                                    Button("Copy Original") {
+                                    Button(isKhmer ? "ចម្លងអត្ថបទដើម" : "Copy Original") {
                                         copyToClipboard(entry.rawText)
                                     }
                                     Divider()
-                                    Button("Delete", role: .destructive) {
+                                    Button(isKhmer ? "លុប" : "Delete", role: .destructive) {
                                         historyStore.delete(entry)
                                         loadHistory()
                                     }
                                 }
                         }
                     } header: {
-                        Text(dateKey)
+                        Text(localizedDateKey(dateKey))
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -134,11 +140,13 @@ struct HistoryView: View {
                 .foregroundColor(.secondary.opacity(0.5))
 
             VStack(spacing: 4) {
-                Text(searchQuery.isEmpty ? "No History Yet" : "No Results")
+                Text(searchQuery.isEmpty
+                     ? (isKhmer ? "មិនទាន់មានប្រវត្តិ" : "No History Yet")
+                     : (isKhmer ? "រកមិនឃើញលទ្ធផល" : "No Results"))
                     .font(.headline)
                 Text(searchQuery.isEmpty
-                     ? "Your dictation history will appear here"
-                     : "Try a different search term")
+                     ? (isKhmer ? "ប្រវត្តិការសរសេររបស់អ្នកនឹងបង្ហាញនៅទីនេះ" : "Your dictation history will appear here")
+                     : (isKhmer ? "សាកល្បងពាក្យស្វែងរកផ្សេង" : "Try a different search term"))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
@@ -162,7 +170,6 @@ struct HistoryView: View {
 
     private var groupedEntries: [(key: String, value: [DictationHistoryEntry])] {
         let grouped = Dictionary(grouping: filteredEntries) { entry -> String in
-            let formatter = DateFormatter()
             let calendar = Calendar.current
 
             if calendar.isDateInToday(entry.timestamp) {
@@ -170,12 +177,24 @@ struct HistoryView: View {
             } else if calendar.isDateInYesterday(entry.timestamp) {
                 return "Yesterday"
             } else {
+                let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 return formatter.string(from: entry.timestamp)
             }
         }
 
         return grouped.sorted { $0.value.first?.timestamp ?? Date() > $1.value.first?.timestamp ?? Date() }
+    }
+
+    private func localizedDateKey(_ key: String) -> String {
+        if isKhmer {
+            switch key {
+            case "Today": return "ថ្ងៃនេះ"
+            case "Yesterday": return "ម្សិលមិញ"
+            default: return key
+            }
+        }
+        return key
     }
 
     private var totalWords: Int {
@@ -197,6 +216,7 @@ struct HistoryView: View {
 private struct HistoryEntryRow: View {
     let entry: DictationHistoryEntry
     let isSelected: Bool
+    let isKhmer: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -234,7 +254,7 @@ private struct HistoryEntryRow: View {
                     // Original text (if different)
                     if entry.rawText != entry.polishedText {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Original:")
+                            Text(isKhmer ? "អត្ថបទដើម:" : "Original:")
                                 .font(.system(size: 10, weight: .semibold))
                                 .foregroundColor(.secondary)
                             Text(entry.rawText)
@@ -245,7 +265,7 @@ private struct HistoryEntryRow: View {
 
                     // Stats
                     HStack(spacing: 16) {
-                        Label("\(entry.wordCount) words", systemImage: "text.word.spacing")
+                        Label(isKhmer ? "\(entry.wordCount) ពាក្យ" : "\(entry.wordCount) words", systemImage: "text.word.spacing")
                         Label(formatDuration(entry.durationSeconds), systemImage: "clock")
                     }
                     .font(.system(size: 11))
@@ -253,7 +273,7 @@ private struct HistoryEntryRow: View {
 
                     // Actions
                     HStack(spacing: 8) {
-                        Button("Copy") {
+                        Button(isKhmer ? "ចម្លង" : "Copy") {
                             NSPasteboard.general.clearContents()
                             NSPasteboard.general.setString(entry.polishedText, forType: .string)
                         }
@@ -272,11 +292,11 @@ private struct HistoryEntryRow: View {
 
     private func formatDuration(_ seconds: TimeInterval) -> String {
         if seconds < 60 {
-            return "\(Int(seconds))s"
+            return isKhmer ? "\(Int(seconds)) វិនាទី" : "\(Int(seconds))s"
         } else {
             let minutes = Int(seconds / 60)
             let secs = Int(seconds.truncatingRemainder(dividingBy: 60))
-            return "\(minutes)m \(secs)s"
+            return isKhmer ? "\(minutes) នាទី \(secs) វិនាទី" : "\(minutes)m \(secs)s"
         }
     }
 }

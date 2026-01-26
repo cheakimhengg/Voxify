@@ -55,6 +55,9 @@ struct RecordingPopupContent: View {
     var mode: String = "Hold"
 
     @State private var pulseAnimation = false
+    @State private var language: String = SettingsStore().load().interfaceLanguage
+
+    private var isKhmer: Bool { language == "Khmer" }
 
     var body: some View {
         HStack(spacing: 12) {
@@ -71,13 +74,15 @@ struct RecordingPopupContent: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
-                    Text(isRecording ? "Recording..." : "Processing")
+                    Text(isRecording
+                         ? (isKhmer ? "កំពុងថត..." : "Recording...")
+                         : (isKhmer ? "កំពុងដំណើរការ" : "Processing"))
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.primary)
 
                     Spacer()
 
-                    Text(mode)
+                    Text(localizedMode)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.secondary)
                         .padding(.horizontal, 6)
@@ -87,7 +92,7 @@ struct RecordingPopupContent: View {
                 }
 
                 if text.isEmpty {
-                    Text("Speak now...")
+                    Text(isKhmer ? "និយាយឥឡូវ..." : "Speak now...")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 } else {
@@ -106,5 +111,19 @@ struct RecordingPopupContent: View {
                 .fill(Color(NSColor.windowBackgroundColor))
                 .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 4)
         )
+        .onReceive(NotificationCenter.default.publisher(for: .voxifySettingsDidChange)) { _ in
+            language = SettingsStore().load().interfaceLanguage
+        }
+    }
+
+    private var localizedMode: String {
+        if isKhmer {
+            switch mode {
+            case "Hold": return "សង្កត់"
+            case "Free Hand": return "ស្វ័យប្រវត្តិ"
+            default: return mode
+            }
+        }
+        return mode
     }
 }

@@ -18,12 +18,10 @@ final class HotkeyMonitor {
 
     // Track state for hold-to-talk
     private var isHoldActive = false
-    private var holdKeyPressed = false
+    private var holdKeyCode: UInt16? = nil
 
-    // Track state for toggle hotkeys (to prevent re-triggering)
-    private var handsFreeTriggered = false
-    private var translateTriggered = false
-    private var ttsTriggered = false
+    // Track pressed modifier-only hotkey to avoid repeat triggers
+    private var activeModifierHotkey: String? = nil
 
     private let settingsStore: SettingsStore
     private var settingsObserver: NSObjectProtocol?
@@ -65,9 +63,9 @@ final class HotkeyMonitor {
 
         // Debug: print loaded hotkeys
         print("[HotkeyMonitor] Loaded hotkeys:")
-        print("  Hold-to-talk: \(holdToTalkHotkey.readableString)")
-        print("  Hands-free: \(handsFreeHotkey.readableString)")
-        print("  TTS: \(ttsHotkey.readableString)")
+        print("  Hold-to-talk: \(holdToTalkHotkey.readableString) (keyCode: \(String(describing: holdToTalkHotkey.keyCode)), modifiers: \(holdToTalkHotkey.modifiers))")
+        print("  Hands-free: \(handsFreeHotkey.readableString) (keyCode: \(String(describing: handsFreeHotkey.keyCode)), modifiers: \(handsFreeHotkey.modifiers))")
+        print("  TTS: \(ttsHotkey.readableString) (keyCode: \(String(describing: ttsHotkey.keyCode)), modifiers: \(ttsHotkey.modifiers))")
     }
 
     func start() {
@@ -124,23 +122,24 @@ final class HotkeyMonitor {
 
     private func resetState() {
         isHoldActive = false
-        holdKeyPressed = false
-        handsFreeTriggered = false
-        translateTriggered = false
-        ttsTriggered = false
+        holdKeyCode = nil
+        activeModifierHotkey = nil
     }
 
     // MARK: - Event Handlers
 
     private func handleKeyDown(_ event: NSEvent) {
+        // Ignore repeat events (key held down)
+        if event.isARepeat { return }
+
         let keyCode = event.keyCode
         let modifiers = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
 
-        // Check hold-to-talk (if it uses a key)
+        // Check hold-to-talk (key-based)
         if let holdKeyCode = holdToTalkHotkey.keyCode {
             if keyCode == holdKeyCode && matchesModifiers(holdToTalkHotkey, modifiers) {
-                if !holdKeyPressed {
-                    holdKeyPressed = true
+                if !isHoldActive {
+                    self.holdKeyCode = keyCode
                     isHoldActive = true
                     print("[HotkeyMonitor] Hold-to-talk started (key: \(keyCode))")
                     onHoldStart?()
@@ -149,7 +148,7 @@ final class HotkeyMonitor {
             }
         }
 
-        // Check hands-free toggle (if it uses a key)
+        // Check hands-free toggle (key-based)
         if let hfKeyCode = handsFreeHotkey.keyCode {
             if keyCode == hfKeyCode && matchesModifiers(handsFreeHotkey, modifiers) {
                 print("[HotkeyMonitor] Hands-free toggled (key: \(keyCode))")
@@ -158,16 +157,16 @@ final class HotkeyMonitor {
             }
         }
 
-        // Check TTS toggle (if it uses a key)
+        // Check TTS toggle (key-based)
         if let ttsKeyCode = ttsHotkey.keyCode {
             if keyCode == ttsKeyCode && matchesModifiers(ttsHotkey, modifiers) {
-                print("[HotkeyMonitor] TTS toggled (key: \(keyCode))")
+                print("[HotkeyMonitor] TTS triggered (key: \(keyCode))")
                 onToggleTTS?()
                 return
             }
         }
 
-        // Check translate toggle (if it uses a key)
+        // Check translate toggle (key-based)
         if let transKeyCode = translateHotkey.keyCode {
             if keyCode == transKeyCode && matchesModifiers(translateHotkey, modifiers) {
                 print("[HotkeyMonitor] Translate toggled (key: \(keyCode))")
@@ -181,42 +180,35 @@ final class HotkeyMonitor {
         let keyCode = event.keyCode
 
         // Check if hold-to-talk key was released
-        if let holdKeyCode = holdToTalkHotkey.keyCode {
-            if keyCode == holdKeyCode && holdKeyPressed {
-                holdKeyPressed = false
-                if isHoldActive {
-                    isHoldActive = false
-                    print("[HotkeyMonitor] Hold-to-talk ended (key released: \(keyCode))")
-                    onHoldEnd?()
-                }
-                return
+        if let holdKey = holdKeyCode, keyCode == holdKey {
+            holdKeyCode = nil
+            if isHoldActive {
+                isHoldActive = false
+                print("[HotkeyMonitor] Hold-to-talk ended (key released: \(keyCode))")
+                onHoldEnd?()
             }
+            return
         }
     }
 
     private func handleFlagsChanged(_ event: NSEvent) {
         let modifiers = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
 
-        // Only handle modifier-only hotkeys here (no keyCode)
-        handleModifierOnlyHotkeys(modifiers)
-    }
+        // Handle modifier-only hotkeys (no keyCode set)
 
-    private func handleModifierOnlyHotkeys(_ modifiers: NSEvent.ModifierFlags) {
         // Hold-to-talk (modifier-only)
         if holdToTalkHotkey.keyCode == nil && !holdToTalkHotkey.modifiers.isEmpty {
             let matches = holdToTalkHotkey.matchesModifiers(modifiers)
 
             if matches && !isHoldActive {
-                // Check if this would also match hands-free (avoid conflict)
-                let hfMatches = handsFreeHotkey.keyCode == nil && handsFreeHotkey.matchesModifiers(modifiers)
-                if !hfMatches {
-                    isHoldActive = true
-                    print("[HotkeyMonitor] Hold-to-talk started (modifiers)")
-                    onHoldStart?()
-                    return
-                }
-            } else if !matches && isHoldActive {
+                isHoldActive = true
+                activeModifierHotkey = "holdToTalk"
+                print("[HotkeyMonitor] Hold-to-talk started (modifiers: \(holdToTalkHotkey.modifiers))")
+                onHoldStart?()
+                return
+            } else if !matches && isHoldActive && activeModifierHotkey == "holdToTalk" {
                 isHoldActive = false
+                activeModifierHotkey = nil
                 print("[HotkeyMonitor] Hold-to-talk ended (modifiers released)")
                 onHoldEnd?()
                 return
@@ -227,13 +219,16 @@ final class HotkeyMonitor {
         if handsFreeHotkey.keyCode == nil && !handsFreeHotkey.modifiers.isEmpty {
             let matches = handsFreeHotkey.matchesModifiers(modifiers)
 
-            if matches && !handsFreeTriggered {
-                handsFreeTriggered = true
-                print("[HotkeyMonitor] Hands-free toggled (modifiers)")
-                onToggleContinuous?()
-                return
-            } else if !matches && handsFreeTriggered {
-                handsFreeTriggered = false
+            if matches && activeModifierHotkey == nil {
+                // Don't trigger if hold-to-talk is active with same modifiers
+                if !(holdToTalkHotkey.keyCode == nil && holdToTalkHotkey.matchesModifiers(modifiers)) {
+                    activeModifierHotkey = "handsFree"
+                    print("[HotkeyMonitor] Hands-free toggled (modifiers: \(handsFreeHotkey.modifiers))")
+                    onToggleContinuous?()
+                    return
+                }
+            } else if !matches && activeModifierHotkey == "handsFree" {
+                activeModifierHotkey = nil
             }
         }
 
@@ -241,18 +236,13 @@ final class HotkeyMonitor {
         if ttsHotkey.keyCode == nil && !ttsHotkey.modifiers.isEmpty {
             let matches = ttsHotkey.matchesModifiers(modifiers)
 
-            if matches && !ttsTriggered {
-                // Avoid conflicts
-                let holdMatches = holdToTalkHotkey.keyCode == nil && holdToTalkHotkey.matchesModifiers(modifiers)
-                let hfMatches = handsFreeHotkey.keyCode == nil && handsFreeHotkey.matchesModifiers(modifiers)
-                if !holdMatches && !hfMatches {
-                    ttsTriggered = true
-                    print("[HotkeyMonitor] TTS toggled (modifiers)")
-                    onToggleTTS?()
-                    return
-                }
-            } else if !matches && ttsTriggered {
-                ttsTriggered = false
+            if matches && activeModifierHotkey == nil {
+                activeModifierHotkey = "tts"
+                print("[HotkeyMonitor] TTS triggered (modifiers: \(ttsHotkey.modifiers))")
+                onToggleTTS?()
+                return
+            } else if !matches && activeModifierHotkey == "tts" {
+                activeModifierHotkey = nil
             }
         }
 
@@ -260,16 +250,13 @@ final class HotkeyMonitor {
         if translateHotkey.keyCode == nil && !translateHotkey.modifiers.isEmpty {
             let matches = translateHotkey.matchesModifiers(modifiers)
 
-            if matches && !translateTriggered {
-                let hfMatches = handsFreeHotkey.keyCode == nil && handsFreeHotkey.matchesModifiers(modifiers)
-                if !hfMatches {
-                    translateTriggered = true
-                    print("[HotkeyMonitor] Translate toggled (modifiers)")
-                    onToggleTranslate?()
-                    return
-                }
-            } else if !matches && translateTriggered {
-                translateTriggered = false
+            if matches && activeModifierHotkey == nil {
+                activeModifierHotkey = "translate"
+                print("[HotkeyMonitor] Translate toggled (modifiers: \(translateHotkey.modifiers))")
+                onToggleTranslate?()
+                return
+            } else if !matches && activeModifierHotkey == "translate" {
+                activeModifierHotkey = nil
             }
         }
     }
@@ -278,9 +265,8 @@ final class HotkeyMonitor {
 
     /// Check if event modifiers match the hotkey config
     private func matchesModifiers(_ config: HotkeyConfig, _ eventModifiers: NSEvent.ModifierFlags) -> Bool {
-        // If no modifiers required, just return true
+        // If no modifiers required, make sure no modifiers are pressed (for single key hotkeys)
         if config.modifiers.isEmpty {
-            // But make sure no modifiers are pressed (for single key hotkeys)
             return !eventModifiers.contains(.control) &&
                    !eventModifiers.contains(.option) &&
                    !eventModifiers.contains(.shift) &&

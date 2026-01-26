@@ -211,19 +211,24 @@ private struct AccountTabView: View {
     @Binding var settings: VoxifySettings
     @State private var isEditingUsername = false
 
+    private var isKhmer: Bool { settings.interfaceLanguage == "Khmer" }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             // Header
-            Text("Account")
+            Text(isKhmer ? "គណនី" : "Account")
                 .font(.system(size: 24, weight: .bold))
 
             // Profile section
             VStack(alignment: .leading, spacing: 20) {
                 // Username
-                SettingsRow(title: "Username", description: "Your display name in the app") {
+                SettingsRow(
+                    title: isKhmer ? "ឈ្មោះអ្នកប្រើប្រាស់" : "Username",
+                    description: isKhmer ? "ឈ្មោះបង្ហាញរបស់អ្នកក្នុងកម្មវិធី" : "Your display name in the app"
+                ) {
                     HStack {
                         if isEditingUsername {
-                            TextField("Username", text: $settings.username)
+                            TextField(isKhmer ? "ឈ្មោះអ្នកប្រើប្រាស់" : "Username", text: $settings.username)
                                 .textFieldStyle(.plain)
                                 .frame(width: 150)
                                 .padding(6)
@@ -233,7 +238,7 @@ private struct AccountTabView: View {
                                     isEditingUsername = false
                                 }
 
-                            Button("Save") {
+                            Button(isKhmer ? "រក្សាទុក" : "Save") {
                                 isEditingUsername = false
                             }
                             .buttonStyle(.borderedProminent)
@@ -242,7 +247,7 @@ private struct AccountTabView: View {
                             Text(settings.username)
                                 .foregroundColor(.secondary)
 
-                            Button("Edit") {
+                            Button(isKhmer ? "កែសម្រួល" : "Edit") {
                                 isEditingUsername = true
                             }
                             .buttonStyle(.bordered)
@@ -254,7 +259,10 @@ private struct AccountTabView: View {
                 Divider()
 
                 // App info
-                SettingsRow(title: "Version", description: "Current app version") {
+                SettingsRow(
+                    title: isKhmer ? "កំណែ" : "Version",
+                    description: isKhmer ? "កំណែកម្មវិធីបច្ចុប្បន្ន" : "Current app version"
+                ) {
                     Text("1.0.0")
                         .foregroundColor(.secondary)
                 }
@@ -262,11 +270,14 @@ private struct AccountTabView: View {
                 Divider()
 
                 // Data
-                SettingsRow(title: "Data", description: "Your dictation data is stored locally") {
+                SettingsRow(
+                    title: isKhmer ? "ទិន្នន័យ" : "Data",
+                    description: isKhmer ? "ទិន្នន័យរបស់អ្នកត្រូវបានរក្សាទុកក្នុងម៉ាស៊ីន" : "Your dictation data is stored locally"
+                ) {
                     HStack(spacing: 8) {
                         Image(systemName: "lock.fill")
                             .foregroundColor(.green)
-                        Text("Private")
+                        Text(isKhmer ? "ឯកជន" : "Private")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
                     }
@@ -280,7 +291,7 @@ private struct AccountTabView: View {
             HStack(spacing: 8) {
                 Image(systemName: "checkmark.shield.fill")
                     .foregroundColor(.green)
-                Text("All your data stays on your device. Voxify is free and open-source.")
+                Text(isKhmer ? "ទិន្នន័យទាំងអស់រក្សាទុកក្នុងឧបករណ៍របស់អ្នក។ Voxify គឺឥតគិតថ្លៃ។" : "All your data stays on your device. Voxify is free and open-source.")
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }
@@ -498,16 +509,24 @@ private struct SettingsTabView: View {
 private struct PersonalizationTabView: View {
     @Binding var settings: VoxifySettings
 
+    private var isKhmer: Bool { settings.interfaceLanguage == "Khmer" }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             // Header
-            Text("Personalization")
+            Text(isKhmer ? "ការកំណត់ផ្ទាល់ខ្លួន" : "Personalization")
                 .font(.system(size: 24, weight: .bold))
 
             // AI Polishing section
-            SettingsSection(title: "AI Polishing", icon: "wand.and.stars") {
+            SettingsSection(
+                title: isKhmer ? "ការកែលម្អ AI" : "AI Polishing",
+                icon: "wand.and.stars"
+            ) {
                 VStack(spacing: 16) {
-                    SettingsRow(title: "Auto-remove fillers", description: "Remove \"um\", \"uh\", and similar filler words.") {
+                    SettingsRow(
+                        title: isKhmer ? "ដកពាក្យបំពេញដោយស្វ័យប្រវត្តិ" : "Auto-remove fillers",
+                        description: isKhmer ? "ដកពាក្យដូចជា \"អឺម\" \"អា\" ។" : "Remove \"um\", \"uh\", and similar filler words."
+                    ) {
                         Toggle("", isOn: $settings.autoRemoveFillers)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -515,7 +534,10 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Repetition detection", description: "Remove repeated words and phrases.") {
+                    SettingsRow(
+                        title: isKhmer ? "រកឃើញការធ្វើម្តងទៀត" : "Repetition detection",
+                        description: isKhmer ? "ដកពាក្យនិងឃ្លាដែលធ្វើម្តងទៀត។" : "Remove repeated words and phrases."
+                    ) {
                         Toggle("", isOn: $settings.repetitionDetection)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -523,7 +545,10 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Grammar correction", description: "Fix grammatical errors automatically.") {
+                    SettingsRow(
+                        title: isKhmer ? "កែវេយ្យាករណ៍" : "Grammar correction",
+                        description: isKhmer ? "កែកំហុសវេយ្យាករណ៍ដោយស្វ័យប្រវត្តិ។" : "Fix grammatical errors automatically."
+                    ) {
                         Toggle("", isOn: $settings.grammarCorrection)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -531,7 +556,10 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Auto-formatting", description: "Format lists, bullets, and paragraphs.") {
+                    SettingsRow(
+                        title: isKhmer ? "ទម្រង់ស្វ័យប្រវត្តិ" : "Auto-formatting",
+                        description: isKhmer ? "ទម្រង់បញ្ជី ចំណុច និងកថាខណ្ឌ។" : "Format lists, bullets, and paragraphs."
+                    ) {
                         Toggle("", isOn: $settings.autoFormatting)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -539,7 +567,10 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Mid-sentence correction", description: "Detect \"no wait\" or \"I mean\" and keep only your intent.") {
+                    SettingsRow(
+                        title: isKhmer ? "កែពាក្យកណ្តាលប្រយោគ" : "Mid-sentence correction",
+                        description: isKhmer ? "រកឃើញ \"ចាំ\" ឬ \"ខ្ញុំចង់និយាយ\" ។" : "Detect \"no wait\" or \"I mean\" and keep only your intent."
+                    ) {
                         Toggle("", isOn: $settings.midSentenceCorrectionEnabled)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -548,9 +579,15 @@ private struct PersonalizationTabView: View {
             }
 
             // Tone section
-            SettingsSection(title: "Tone", icon: "text.quote") {
+            SettingsSection(
+                title: isKhmer ? "សម្លេង" : "Tone",
+                icon: "text.quote"
+            ) {
                 VStack(spacing: 16) {
-                    SettingsRow(title: "Context-aware tone", description: "Automatically adjust tone based on the active app.") {
+                    SettingsRow(
+                        title: isKhmer ? "សម្លេងតាមបរិបទ" : "Context-aware tone",
+                        description: isKhmer ? "កែសម្រួលសម្លេងដោយស្វ័យប្រវត្តិ។" : "Automatically adjust tone based on the active app."
+                    ) {
                         Toggle("", isOn: $settings.contextAwareToneEnabled)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -558,11 +595,14 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Default tone", description: "Used when context-aware is disabled.") {
+                    SettingsRow(
+                        title: isKhmer ? "សម្លេងលំនាំដើម" : "Default tone",
+                        description: isKhmer ? "ប្រើនៅពេលបរិបទត្រូវបានបិទ។" : "Used when context-aware is disabled."
+                    ) {
                         Picker("", selection: $settings.preferredTone) {
-                            Text("Professional").tag("Professional")
-                            Text("Casual").tag("Casual")
-                            Text("Concise").tag("Concise")
+                            Text(isKhmer ? "វិជ្ជាជីវៈ" : "Professional").tag("Professional")
+                            Text(isKhmer ? "ធម្មតា" : "Casual").tag("Casual")
+                            Text(isKhmer ? "សង្ខេប" : "Concise").tag("Concise")
                         }
                         .pickerStyle(.menu)
                         .frame(width: 150)
@@ -572,9 +612,15 @@ private struct PersonalizationTabView: View {
             }
 
             // Privacy section
-            SettingsSection(title: "Privacy", icon: "lock") {
+            SettingsSection(
+                title: isKhmer ? "ឯកជនភាព" : "Privacy",
+                icon: "lock"
+            ) {
                 VStack(spacing: 16) {
-                    SettingsRow(title: "Save dictation history", description: "Store your dictations for later review.") {
+                    SettingsRow(
+                        title: isKhmer ? "រក្សាទុកប្រវត្តិ" : "Save dictation history",
+                        description: isKhmer ? "រក្សាទុកការសរសេររបស់អ្នកសម្រាប់ពិនិត្យ។" : "Store your dictations for later review."
+                    ) {
                         Toggle("", isOn: $settings.saveHistoryEnabled)
                             .toggleStyle(.switch)
                             .labelsHidden()
@@ -582,7 +628,10 @@ private struct PersonalizationTabView: View {
 
                     Divider()
 
-                    SettingsRow(title: "Privacy mode", description: "When enabled, dictations are not saved.") {
+                    SettingsRow(
+                        title: isKhmer ? "របៀបឯកជន" : "Privacy mode",
+                        description: isKhmer ? "នៅពេលបើក ការសរសេរមិនត្រូវបានរក្សាទុក។" : "When enabled, dictations are not saved."
+                    ) {
                         Toggle("", isOn: $settings.privacyMode)
                             .toggleStyle(.switch)
                             .labelsHidden()
